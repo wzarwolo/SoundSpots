@@ -1,0 +1,414 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		15FF83B2F6609227468FC32A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8AC0285990CD7CC15875A6 /* AppDelegate.swift */; };
+		FAD5D28654990A5463FFC64B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73BA6A43557E1F5D1E38270 /* SceneDelegate.swift */; };
+		598647CC2FDE78DD9E901472 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D69AD9FFC6EAB2B37189C8 /* Song.swift */; };
+		F4C2BD9CA74FDA6255D84463 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF3C1AB95D85D546ACDD06A /* Place.swift */; };
+		99F95C8B10ABA1F838640E5B /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152B7BE30F3A95DA108A1EE /* Enums.swift */; };
+		C92EADE5114B8B593974B5A3 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01181076C366AC09CFAABF82 /* SampleData.swift */; };
+		7CA2FB660D74867FE22A09B5 /* MusicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3DB49417F36C5AFD0670F5 /* MusicService.swift */; };
+		7A6DDAD8F1830136C75F8B6F /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A2FB10B89DD45619174260 /* NetworkError.swift */; };
+		46D0462B18C14A4BE493B99D /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F29872C1A377015B50BB9 /* ImageLoader.swift */; };
+		34CEA4AB4DDBF5FE1DBFCDD4 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8A1CA35C185DD8F24A1FE /* LocationService.swift */; };
+		1CB80CD4AFB8A6EE3561F4F8 /* PreviewPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD1FBE8EBDEC6680B6CB2E0 /* PreviewPlayer.swift */; };
+		43B81706CEBE197B4BA5BB48 /* UserDefaults+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A6B6500BBD4F087DE86445 /* UserDefaults+Codable.swift */; };
+		6268B5A2C16AD0DE49FE7D51 /* ListenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C9996B07107E9705F579DE /* ListenStore.swift */; };
+		ED433FD14F5078C4A1E25CF5 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B55B44B8C649737804CC283 /* MapViewController.swift */; };
+		7A5CF569E021AE193A79F6AE /* LogListenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4BD540D5AA9E711178FB4C /* LogListenViewController.swift */; };
+		27E3DEF4836D8D1C3891E8E0 /* ConfirmListenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC12F179ED1794FE1C8EEAD /* ConfirmListenViewController.swift */; };
+		9E902D3E9A3E127B9B7B98B7 /* FirstListensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB9C4D1839CD97C472A9665 /* FirstListensViewController.swift */; };
+		60D8EB3F8BCA5A6513B07F16 /* SongDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B0320AB951E9DADF1E26DA /* SongDetailViewController.swift */; };
+		2C51946A8AB1A29E7D28992E /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76301EBADD13604906D29B40 /* PlacesViewController.swift */; };
+		4A5F40DD0D6535A459DFE96B /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71762AAC491B096658C0390A /* PlaylistViewController.swift */; };
+		EC1A94E77CCE601F7F706195 /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD71DFEFE63A1D1D32EDE105 /* SongCell.swift */; };
+		830B7B7055D143D3EAE03249 /* PlaceAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3DE66B7CB381E279A12553 /* PlaceAnnotation.swift */; };
+		D38BF5497BDD86B2C46E2A77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EC6C0335CEFFDA670613629 /* Main.storyboard */; };
+		11BC8F67D5E0527CD5A64224 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DEE475B5E8ABA1ECCA25239 /* LaunchScreen.storyboard */; };
+		5A05BA6CB59A5DBB4ED9BE86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D0ECC818F0BCB4FB9570B41 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F5BF48AA40CAD7891EB709FC /* SoundSpots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundSpots.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C8AC0285990CD7CC15875A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate.swift"; sourceTree = "<group>"; };
+		A73BA6A43557E1F5D1E38270 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneDelegate.swift"; sourceTree = "<group>"; };
+		E3D69AD9FFC6EAB2B37189C8 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Song.swift"; sourceTree = "<group>"; };
+		5DF3C1AB95D85D546ACDD06A /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Place.swift"; sourceTree = "<group>"; };
+		2152B7BE30F3A95DA108A1EE /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enums.swift"; sourceTree = "<group>"; };
+		01181076C366AC09CFAABF82 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SampleData.swift"; sourceTree = "<group>"; };
+		9B3DB49417F36C5AFD0670F5 /* MusicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MusicService.swift"; sourceTree = "<group>"; };
+		C5A2FB10B89DD45619174260 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkError.swift"; sourceTree = "<group>"; };
+		244F29872C1A377015B50BB9 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageLoader.swift"; sourceTree = "<group>"; };
+		2CC8A1CA35C185DD8F24A1FE /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationService.swift"; sourceTree = "<group>"; };
+		3CD1FBE8EBDEC6680B6CB2E0 /* PreviewPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PreviewPlayer.swift"; sourceTree = "<group>"; };
+		71A6B6500BBD4F087DE86445 /* UserDefaults+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Codable.swift"; sourceTree = "<group>"; };
+		F9C9996B07107E9705F579DE /* ListenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListenStore.swift"; sourceTree = "<group>"; };
+		7B55B44B8C649737804CC283 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController.swift"; sourceTree = "<group>"; };
+		6D4BD540D5AA9E711178FB4C /* LogListenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogListenViewController.swift"; sourceTree = "<group>"; };
+		9FC12F179ED1794FE1C8EEAD /* ConfirmListenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConfirmListenViewController.swift"; sourceTree = "<group>"; };
+		5FB9C4D1839CD97C472A9665 /* FirstListensViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirstListensViewController.swift"; sourceTree = "<group>"; };
+		F6B0320AB951E9DADF1E26DA /* SongDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SongDetailViewController.swift"; sourceTree = "<group>"; };
+		76301EBADD13604906D29B40 /* PlacesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlacesViewController.swift"; sourceTree = "<group>"; };
+		71762AAC491B096658C0390A /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistViewController.swift"; sourceTree = "<group>"; };
+		AD71DFEFE63A1D1D32EDE105 /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SongCell.swift"; sourceTree = "<group>"; };
+		DF3DE66B7CB381E279A12553 /* PlaceAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaceAnnotation.swift"; sourceTree = "<group>"; };
+		3EC6C0335CEFFDA670613629 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Main.storyboard"; sourceTree = "<group>"; };
+		0DEE475B5E8ABA1ECCA25239 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "LaunchScreen.storyboard"; sourceTree = "<group>"; };
+		2D0ECC818F0BCB4FB9570B41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets.xcassets"; sourceTree = "<group>"; };
+		AAC752E9E7B980A655A97B67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info.plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DAF6AA633395B1B76148E35B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FAD58DE7366495DB4650CFEF = {
+			isa = PBXGroup;
+			children = (
+				20F4BD606C0F6D1645AE4919 /* SoundSpots */,
+				86024CAD1E83101D97359D73 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		86024CAD1E83101D97359D73 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F5BF48AA40CAD7891EB709FC /* SoundSpots.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		20F4BD606C0F6D1645AE4919 /* SoundSpots */ = {
+			isa = PBXGroup;
+			children = (
+				267AEBE1BACFD8AB573455B5 /* App */,
+				D124483EF0233AEE30ED7A11 /* Models */,
+				9FA873F4150F9B6BD7DA6B3F /* Networking */,
+				64A31DAC7376B8992A6D7FEE /* Services */,
+				437E7C0A1B71EC684A8D79BB /* Persistence */,
+				591C559ED6D6B15A9F85FD02 /* Controllers */,
+				785A62F6730D915597ED2079 /* Views */,
+				78293C213848B86FA7E3E3C8 /* Resources */,
+			);
+			path = SoundSpots;
+			sourceTree = "<group>";
+		};
+		267AEBE1BACFD8AB573455B5 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				9C8AC0285990CD7CC15875A6 /* AppDelegate.swift */,
+				A73BA6A43557E1F5D1E38270 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		D124483EF0233AEE30ED7A11 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E3D69AD9FFC6EAB2B37189C8 /* Song.swift */,
+				5DF3C1AB95D85D546ACDD06A /* Place.swift */,
+				2152B7BE30F3A95DA108A1EE /* Enums.swift */,
+				01181076C366AC09CFAABF82 /* SampleData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9FA873F4150F9B6BD7DA6B3F /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				9B3DB49417F36C5AFD0670F5 /* MusicService.swift */,
+				C5A2FB10B89DD45619174260 /* NetworkError.swift */,
+				244F29872C1A377015B50BB9 /* ImageLoader.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		64A31DAC7376B8992A6D7FEE /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2CC8A1CA35C185DD8F24A1FE /* LocationService.swift */,
+				3CD1FBE8EBDEC6680B6CB2E0 /* PreviewPlayer.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		437E7C0A1B71EC684A8D79BB /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				71A6B6500BBD4F087DE86445 /* UserDefaults+Codable.swift */,
+				F9C9996B07107E9705F579DE /* ListenStore.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		591C559ED6D6B15A9F85FD02 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7B55B44B8C649737804CC283 /* MapViewController.swift */,
+				6D4BD540D5AA9E711178FB4C /* LogListenViewController.swift */,
+				9FC12F179ED1794FE1C8EEAD /* ConfirmListenViewController.swift */,
+				5FB9C4D1839CD97C472A9665 /* FirstListensViewController.swift */,
+				F6B0320AB951E9DADF1E26DA /* SongDetailViewController.swift */,
+				76301EBADD13604906D29B40 /* PlacesViewController.swift */,
+				71762AAC491B096658C0390A /* PlaylistViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		785A62F6730D915597ED2079 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AD71DFEFE63A1D1D32EDE105 /* SongCell.swift */,
+				DF3DE66B7CB381E279A12553 /* PlaceAnnotation.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		78293C213848B86FA7E3E3C8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3EC6C0335CEFFDA670613629 /* Main.storyboard */,
+				0DEE475B5E8ABA1ECCA25239 /* LaunchScreen.storyboard */,
+				2D0ECC818F0BCB4FB9570B41 /* Assets.xcassets */,
+				AAC752E9E7B980A655A97B67 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		42AEFBAE01D2DFD981F7DA7D /* SoundSpots */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6332F53C82F410CF08F794C6 /* Build configuration list for PBXNativeTarget "SoundSpots" */;
+			buildPhases = (
+				0F78FE532035D122ED352DBA /* Sources */,
+				DAF6AA633395B1B76148E35B /* Frameworks */,
+				943E4BBD9B51C81965501BA3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SoundSpots;
+			productName = SoundSpots;
+			productReference = F5BF48AA40CAD7891EB709FC /* SoundSpots.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4DC844ABCCFC0D132D087C1C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					42AEFBAE01D2DFD981F7DA7D = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 4704357D31391BE81C31195C /* Build configuration list for PBXProject "SoundSpots" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FAD58DE7366495DB4650CFEF;
+			productRefGroup = 86024CAD1E83101D97359D73 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				42AEFBAE01D2DFD981F7DA7D /* SoundSpots */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		943E4BBD9B51C81965501BA3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D38BF5497BDD86B2C46E2A77 /* Main.storyboard in Resources */,
+				11BC8F67D5E0527CD5A64224 /* LaunchScreen.storyboard in Resources */,
+				5A05BA6CB59A5DBB4ED9BE86 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0F78FE532035D122ED352DBA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15FF83B2F6609227468FC32A /* AppDelegate.swift in Sources */,
+				FAD5D28654990A5463FFC64B /* SceneDelegate.swift in Sources */,
+				598647CC2FDE78DD9E901472 /* Song.swift in Sources */,
+				F4C2BD9CA74FDA6255D84463 /* Place.swift in Sources */,
+				99F95C8B10ABA1F838640E5B /* Enums.swift in Sources */,
+				C92EADE5114B8B593974B5A3 /* SampleData.swift in Sources */,
+				7CA2FB660D74867FE22A09B5 /* MusicService.swift in Sources */,
+				7A6DDAD8F1830136C75F8B6F /* NetworkError.swift in Sources */,
+				46D0462B18C14A4BE493B99D /* ImageLoader.swift in Sources */,
+				34CEA4AB4DDBF5FE1DBFCDD4 /* LocationService.swift in Sources */,
+				1CB80CD4AFB8A6EE3561F4F8 /* PreviewPlayer.swift in Sources */,
+				43B81706CEBE197B4BA5BB48 /* UserDefaults+Codable.swift in Sources */,
+				6268B5A2C16AD0DE49FE7D51 /* ListenStore.swift in Sources */,
+				ED433FD14F5078C4A1E25CF5 /* MapViewController.swift in Sources */,
+				7A5CF569E021AE193A79F6AE /* LogListenViewController.swift in Sources */,
+				27E3DEF4836D8D1C3891E8E0 /* ConfirmListenViewController.swift in Sources */,
+				9E902D3E9A3E127B9B7B98B7 /* FirstListensViewController.swift in Sources */,
+				60D8EB3F8BCA5A6513B07F16 /* SongDetailViewController.swift in Sources */,
+				2C51946A8AB1A29E7D28992E /* PlacesViewController.swift in Sources */,
+				4A5F40DD0D6535A459DFE96B /* PlaylistViewController.swift in Sources */,
+				EC1A94E77CCE601F7F706195 /* SongCell.swift in Sources */,
+				830B7B7055D143D3EAE03249 /* PlaceAnnotation.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		638A1DC68E43C0A57EEF0228 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+			};
+			name = Debug;
+		};
+		2B645610CD3D8D67581A2E9D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		ADF8D10C1FBA999C12F23879 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SoundSpots/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SoundSpots;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "SoundSpots pins each song you log to the place where you heard it.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.capstone.SoundSpots;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6791BF1F1E8A3A0981023556 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SoundSpots/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SoundSpots;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "SoundSpots pins each song you log to the place where you heard it.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.capstone.SoundSpots;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4704357D31391BE81C31195C /* Build configuration list for PBXProject "SoundSpots" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				638A1DC68E43C0A57EEF0228 /* Debug */,
+				2B645610CD3D8D67581A2E9D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6332F53C82F410CF08F794C6 /* Build configuration list for PBXNativeTarget "SoundSpots" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ADF8D10C1FBA999C12F23879 /* Debug */,
+				6791BF1F1E8A3A0981023556 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4DC844ABCCFC0D132D087C1C /* Project object */;
+}

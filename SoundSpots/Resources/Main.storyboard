@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tab-bar">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <scene sceneID="sc-005">
+    <objects>
+        <tabBarController id="tab-bar" sceneMemberID="viewController">
+    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tb-001">
+        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+        <autoresizingMask key="autoresizingMask"/>
+    </tabBar>
+    <connections>
+        <segue destination="nav-map" kind="relationship" relationship="viewControllers" id="sg-002"/>
+        <segue destination="nav-first" kind="relationship" relationship="viewControllers" id="sg-003"/>
+        <segue destination="nav-playlists" kind="relationship" relationship="viewControllers" id="sg-004"/>
+    </connections>
+</tabBarController>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="fr-006" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+    </objects>
+</scene><scene sceneID="sc-191">
+    <objects>
+        <navigationController id="nav-map" sceneMemberID="viewController">
+    <tabBarItem key="tabBarItem" title="Map" image="map.fill" catalog="system" id="tbi-188"/>
+    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="nb-189">
+        <rect key="frame" x="0.0" y="59" width="393" height="96"/>
+        <autoresizingMask key="autoresizingMask"/>
+    </navigationBar>
+    <connections>
+        <segue destination="map-vc" kind="relationship" relationship="rootViewController" id="sg-190"/>
+    </connections>
+</navigationController>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="fr-192" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+    </objects>
+</scene><scene sceneID="sc-025">
+    <objects>
+        <viewController id="map-vc" customClass="MapViewController" customModule="SoundSpots" customModuleProvider="target" sceneMemberID="viewController">
+    <view key="view" contentMode="scaleToFill" id="map-view">
+    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+    <subviews><mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="map-map"></mapView><view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="map-hint-container">
+    <subviews><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap + to log what you're listening to." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="map-hint-label">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleSubheadline"/>
+    <nil key="textColor"/>
+    <nil key="highlightedColor"/>
+</label></subviews>
+    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+    <constraints>
+        <constraint firstItem="map-hint-label" firstAttribute="top" secondItem="map-hint-container" secondAttribute="top" constant="12" id="cn-007"/>
+        <constraint firstItem="map-hint-label" firstAttribute="leading" secondItem="map-hint-container" secondAttribute="leading" constant="14" id="cn-008"/>
+        <constraint firstItem="map-hint-container" firstAttribute="trailing" secondItem="map-hint-label" secondAttribute="trailing" constant="14" id="cn-009"/>
+        <constraint firstItem="map-hint-container" firstAttribute="bottom" secondItem="map-hint-label" secondAttribute="bottom" constant="12" id="cn-010"/>
+    </constraints>
+</view></subviews>
+    <viewLayoutGuide key="safeArea" id="map-safe"/>
+    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+    <constraints><constraint firstItem="map-map" firstAttribute="top" secondItem="map-view" secondAttribute="top" id="cn-011"/><constraint firstItem="map-map" firstAttribute="leading" secondItem="map-view" secondAttribute="leading" id="cn-012"/><constraint firstItem="map-view" firstAttribute="trailing" secondItem="map-map" secondAttribute="trailing" id="cn-013"/><constraint firstItem="map-view" firstAttribute="bottom" secondItem="map-map" secondAttribute="bottom" id="cn-014"/><constraint firstItem="map-hint-container" firstAttribute="leading" secondItem="map-safe" secondAttribute="leading" constant="16" id="cn-015"/><constraint firstItem="map-safe" firstAttribute="trailing" secondItem="map-hint-container" secondAttribute="trailing" constant="16" id="cn-016"/><constraint firstItem="map-safe" firstAttribute="bottom" secondItem="map-hint-container" secondAttribute="bottom" constant="16" id="cn-017"/></constraints>
+</view>
+    <navigationItem key="navigationItem" title="SoundSpots" id="ni-018">
+    <barButtonItem key="rightBarButtonItem" systemItem="add" id="bbi-019">
+        <connections>
+            <segue destination="log-nav" kind="presentation" identifier="showLogListen" id="sg-020"/>
+        </connections>
+    </barButtonItem>
+</navigationItem>
+    <connections><outlet property="mapView" destination="map-map" id="ou-021"/><outlet property="hintContainer" destination="map-hint-container" id="ou-022"/><outlet property="hintLabel" destination="map-hint-label" id="ou-023"/><segue destination="playlist-vc" kind="show" identifier="showPlaylist" id="sg-024"/></connections>
+</viewController>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="fr-026" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+    </objects>
+</scene><scene sceneID="sc-195">
+    <objects>
+        <navigationController id="log-nav" sceneMemberID="viewController">
+    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nb-193">
+        <rect key="frame" x="0.0" y="0.0" width="393" height="56"/>
+        <autoresizingMask key="autoresizingMask"/>
+    </navigationBar>
+    <connections>
+        <segue destination="log-vc" kind="relationship" relationship="rootViewController" id="sg-194"/>
+    </connections>
+</navigationController>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="fr-196" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+    </objects>
+</scene><scene sceneID="sc-057">
+    <objects>
+        <viewController id="log-vc" customClass="LogListenViewController" customModule="SoundSpots" customModuleProvider="target" sceneMemberID="viewController">
+    <view key="view" contentMode="scaleToFill" id="log-view">
+    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+    <subviews><searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Song or artist" translatesAutoresizingMaskIntoConstraints="NO" id="log-search">
+        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search"/>
+    </searchBar><tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="84" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="log-table">
+    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+    <prototypes><tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SongCell" id="log-cell" customClass="SongCell" customModule="SoundSpots" customModuleProvider="target">
+    <rect key="frame" x="0.0" y="50" width="393" height="84"/>
+    <autoresizingMask key="autoresizingMask"/>
+    <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="log-cell" id="log-cellcontent">
+        <rect key="frame" x="0.0" y="0.0" width="362" height="84"/>
+        <autoresizingMask key="autoresizingMask"/>
+        <subviews><stackView opaque="NO" contentMode="scaleToFill" axis="horizontal" spacing="12" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="log-row">
+    <subviews>
+        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="log-art"><constraints><constraint firstAttribute="width" constant="60" id="cn-027"/><constraint firstAttribute="height" constant="60" priority="999" id="cn-028"/></constraints></imageView><stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="log-texts">
+    <subviews>
+        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="log-title">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+    <nil key="textColor"/>
+    <nil key="highlightedColor"/>
+</label><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="log-artist">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleSubheadline"/>
+    <color key="textColor" systemColor="secondaryLabelColor"/>
+    <nil key="highlightedColor"/>
+</label><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="log-detail">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+    <color key="textColor" systemColor="systemPinkColor"/>
+    <nil key="highlightedColor"/>
+</label>
+    </subviews>
+    
+</stackView>
+    </subviews>
+    
+</stackView></subviews>
+        <constraints>
+            <constraint firstItem="log-row" firstAttribute="top" secondItem="log-cellcontent" secondAttribute="topMargin" id="cn-029"/>
+            <constraint firstItem="log-row" firstAttribute="leading" secondItem="log-cellcontent" secondAttribute="leadingMargin" id="cn-030"/>
+            <constraint firstItem="log-cellcontent" firstAttribute="trailingMargin" secondItem="log-row" secondAttribute="trailing" id="cn-031"/>
+            <constraint firstItem="log-cellcontent" firstAttribute="bottomMargin" secondItem="log-row" secondAttribute="bottom" id="cn-032"/>
+        </constraints>
+    </tableViewCellContentView>
+    <connections>
+        <outlet property="artworkImageView" destination="log-art" id="ou-033"/><outlet property="titleLabel" destination="log-title" id="ou-034"/><outlet property="artistLabel" destination="log-artist" id="ou-035"/><outlet property="detailLabel" destination="log-detail" id="ou-036"/>
+    </connections>
+</tableViewCell></prototypes>
+</tableView><activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="log-spinner"/><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search for a song" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="log-message">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+    <color key="textColor" systemColor="secondaryLabelColor"/>
+    <nil key="highlightedColor"/>
+</label></subviews>
+    <viewLayoutGuide key="safeArea" id="log-safe"/>
+    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+    <constraints><constraint firstItem="log-search" firstAttribute="top" secondItem="log-safe" secondAttribute="top" id="cn-037"/><constraint firstItem="log-search" firstAttribute="leading" secondItem="log-safe" secondAttribute="leading" constant="8" id="cn-038"/><constraint firstItem="log-safe" firstAttribute="trailing" secondItem="log-search" secondAttribute="trailing" constant="8" id="cn-039"/><constraint firstItem="log-table" firstAttribute="top" secondItem="log-search" secondAttribute="bottom" constant="4" id="cn-040"/><constraint firstItem="log-table" firstAttribute="leading" secondItem="log-view" secondAttribute="leading" id="cn-041"/><constraint firstItem="log-view" firstAttribute="trailing" secondItem="log-table" secondAttribute="trailing" id="cn-042"/><constraint firstItem="log-view" firstAttribute="bottom" secondItem="log-table" secondAttribute="bottom" id="cn-043"/><constraint firstItem="log-spinner" firstAttribute="centerX" secondItem="log-table" secondAttribute="centerX" id="cn-044"/><constraint firstItem="log-spinner" firstAttribute="top" secondItem="log-table" secondAttribute="top" constant="80" id="cn-045"/><constraint firstItem="log-message" firstAttribute="top" secondItem="log-table" secondAttribute="top" constant="80" id="cn-046"/><constraint firstItem="log-message" firstAttribute="leading" secondItem="log-safe" secondAttribute="leading" constant="32" id="cn-047"/><constraint firstItem="log-safe" firstAttribute="trailing" secondItem="log-message" secondAttribute="trailing" constant="32" id="cn-048"/></constraints>
+</view>
+    <navigationItem key="navigationItem" title="Log a Listen" id="ni-049">
+    <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="bbi-050">
+        <connections><action selector="cancelTapped:" destination="log-vc" id="ac-051"/></connections>
+    </barButtonItem>
+</navigationItem>
+    <connections><outlet property="searchBar" destination="log-search" id="ou-052"/><outlet property="tableView" destination="log-table" id="ou-053"/><outlet property="activityIndicator" destination="log-spinner" id="ou-054"/><outlet property="messageLabel" destination="log-message" id="ou-055"/><segue destination="confirm-vc" kind="show" identifier="showConfirmListen" id="sg-056"/></connections>
+</viewController>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="fr-058" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+    </objects>
+</scene><scene sceneID="sc-089">
+    <objects>
+        <viewController id="confirm-vc" customClass="ConfirmListenViewController" customModule="SoundSpots" customModuleProvider="target" sceneMemberID="viewController">
+    <view key="view" contentMode="scaleToFill" id="confirm-view">
+    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+    <subviews><scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="cf-scroll">
+    <subviews><stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="cf-stack">
+    <subviews>
+        <stackView opaque="NO" contentMode="scaleToFill" axis="horizontal" spacing="14" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="row-059">
+    <subviews>
+        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cf-art"><constraints><constraint firstAttribute="width" constant="88" id="cn-060"/><constraint firstAttribute="height" constant="88" id="cn-061"/></constraints></imageView><stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="col-062">
+    <subviews>
+        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cf-title">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+    <nil key="textColor"/>
+    <nil key="highlightedColor"/>
+</label><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cf-artist">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleSubheadline"/>
+    <color key="textColor" systemColor="secondaryLabelColor"/>
+    <nil key="highlightedColor"/>
+</label>
+    </subviews>
+    
+</stackView>
+    </subviews>
+    
+</stackView><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You're listening here" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lbl-063">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+    <nil key="textColor"/>
+    <nil key="highlightedColor"/>
+</label><mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="cf-map"><constraints><constraint firstAttribute="height" constant="220" id="cn-064"/></constraints></mapView><stackView opaque="NO" contentMode="scaleToFill" axis="horizontal" spacing="8" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="row-065">
+    <subviews>
+        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="cf-spinner"/><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Finding where you are…" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cf-status">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+    <color key="textColor" systemColor="secondaryLabelColor"/>
+    <nil key="highlightedColor"/>
+</label>
+    </subviews>
+    
+</stackView><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name this spot" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lbl-066">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+    <nil key="textColor"/>
+    <nil key="highlightedColor"/>
+</label><textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="e.g. Home, Gym, Mom's car" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="cf-field">
+    <constraints><constraint firstAttribute="height" constant="44" id="cn-067"/></constraints>
+    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
+    <connections>
+        <action selector="placeNameChanged:" destination="confirm-vc" eventType="editingChanged" id="ac-068"/>
+    </connections>
+</textField><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Listens within 150 m of a saved spot are added to that spot's playlist." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lbl-069">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+    <color key="textColor" systemColor="secondaryLabelColor"/>
+    <nil key="highlightedColor"/>
+</label>
+    </subviews>
+    
+</stackView></subviews>
+    <constraints>
+        <constraint firstItem="cf-stack" firstAttribute="top" secondItem="cf-scroll" secondAttribute="top" constant="16" id="cn-070"/>
+        <constraint firstItem="cf-stack" firstAttribute="leading" secondItem="cf-scroll" secondAttribute="leading" constant="20" id="cn-071"/>
+        <constraint firstItem="cf-scroll" firstAttribute="trailing" secondItem="cf-stack" secondAttribute="trailing" constant="20" id="cn-072"/>
+        <constraint firstItem="cf-scroll" firstAttribute="bottom" secondItem="cf-stack" secondAttribute="bottom" constant="24" id="cn-073"/>
+        <constraint firstItem="cf-stack" firstAttribute="width" secondItem="cf-scroll" secondAttribute="width" constant="-40" id="cn-074"/>
+    </constraints>
+</scrollView></subviews>
+    <viewLayoutGuide key="safeArea" id="confirm-safe"/>
+    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+    <constraints><constraint firstItem="cf-scroll" firstAttribute="top" secondItem="confirm-safe" secondAttribute="top" id="cn-075"/><constraint firstItem="cf-scroll" firstAttribute="leading" secondItem="confirm-view" secondAttribute="leading" id="cn-076"/><constraint firstItem="confirm-view" firstAttribute="trailing" secondItem="cf-scroll" secondAttribute="trailing" id="cn-077"/><constraint firstItem="confirm-view" firstAttribute="bottom" secondItem="cf-scroll" secondAttribute="bottom" id="cn-078"/></constraints>
+</view>
+    <navigationItem key="navigationItem" title="Where Are You?" largeTitleDisplayMode="never" id="ni-079">
+    <barButtonItem key="rightBarButtonItem" style="done" systemItem="save" id="cf-save">
+        <connections><action selector="saveTapped:" destination="confirm-vc" id="ac-080"/></connections>
+    </barButtonItem>
+</navigationItem>
+    <connections><outlet property="artworkImageView" destination="cf-art" id="ou-081"/><outlet property="songTitleLabel" destination="cf-title" id="ou-082"/><outlet property="artistLabel" destination="cf-artist" id="ou-083"/><outlet property="mapView" destination="cf-map" id="ou-084"/><outlet property="locationStatusLabel" destination="cf-status" id="ou-085"/><outlet property="placeNameField" destination="cf-field" id="ou-086"/><outlet property="locatingIndicator" destination="cf-spinner" id="ou-087"/><outlet property="saveBarButton" destination="cf-save" id="ou-088"/></connections>
+</viewController>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="fr-090" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+    </objects>
+</scene><scene sceneID="sc-200">
+    <objects>
+        <navigationController id="nav-first" sceneMemberID="viewController">
+    <tabBarItem key="tabBarItem" title="First Heard" image="music.note" catalog="system" id="tbi-197"/>
+    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="nb-198">
+        <rect key="frame" x="0.0" y="59" width="393" height="96"/>
+        <autoresizingMask key="autoresizingMask"/>
+    </navigationBar>
+    <connections>
+        <segue destination="first-vc" kind="relationship" relationship="rootViewController" id="sg-199"/>
+    </connections>
+</navigationController>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="fr-201" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+    </objects>
+</scene><scene sceneID="sc-112">
+    <objects>
+        <viewController id="first-vc" customClass="FirstListensViewController" customModule="SoundSpots" customModuleProvider="target" sceneMemberID="viewController">
+    <view key="view" contentMode="scaleToFill" id="first-view">
+    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+    <subviews><tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="84" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="first-table">
+    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+    <prototypes><tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SongCell" id="first-cell" customClass="SongCell" customModule="SoundSpots" customModuleProvider="target">
+    <rect key="frame" x="0.0" y="50" width="393" height="84"/>
+    <autoresizingMask key="autoresizingMask"/>
+    <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="first-cell" id="first-cellcontent">
+        <rect key="frame" x="0.0" y="0.0" width="362" height="84"/>
+        <autoresizingMask key="autoresizingMask"/>
+        <subviews><stackView opaque="NO" contentMode="scaleToFill" axis="horizontal" spacing="12" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="first-row">
+    <subviews>
+        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="first-art"><constraints><constraint firstAttribute="width" constant="60" id="cn-091"/><constraint firstAttribute="height" constant="60" priority="999" id="cn-092"/></constraints></imageView><stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="first-texts">
+    <subviews>
+        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="first-title">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+    <nil key="textColor"/>
+    <nil key="highlightedColor"/>
+</label><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="first-artist">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleSubheadline"/>
+    <color key="textColor" systemColor="secondaryLabelColor"/>
+    <nil key="highlightedColor"/>
+</label><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="first-detail">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+    <color key="textColor" systemColor="systemPinkColor"/>
+    <nil key="highlightedColor"/>
+</label>
+    </subviews>
+    
+</stackView>
+    </subviews>
+    
+</stackView></subviews>
+        <constraints>
+            <constraint firstItem="first-row" firstAttribute="top" secondItem="first-cellcontent" secondAttribute="topMargin" id="cn-093"/>
+            <constraint firstItem="first-row" firstAttribute="leading" secondItem="first-cellcontent" secondAttribute="leadingMargin" id="cn-094"/>
+            <constraint firstItem="first-cellcontent" firstAttribute="trailingMargin" secondItem="first-row" secondAttribute="trailing" id="cn-095"/>
+            <constraint firstItem="first-cellcontent" firstAttribute="bottomMargin" secondItem="first-row" secondAttribute="bottom" id="cn-096"/>
+        </constraints>
+    </tableViewCellContentView>
+    <connections>
+        <outlet property="artworkImageView" destination="first-art" id="ou-097"/><outlet property="titleLabel" destination="first-title" id="ou-098"/><outlet property="artistLabel" destination="first-artist" id="ou-099"/><outlet property="detailLabel" destination="first-detail" id="ou-100"/>
+    </connections>
+</tableViewCell></prototypes>
+</tableView><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No songs yet.
+Log a listen from the Map tab, or load demo data from its Options menu." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="first-empty">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+    <color key="textColor" systemColor="secondaryLabelColor"/>
+    <nil key="highlightedColor"/>
+</label></subviews>
+    <viewLayoutGuide key="safeArea" id="first-safe"/>
+    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+    <constraints><constraint firstItem="first-table" firstAttribute="top" secondItem="first-view" secondAttribute="top" id="cn-101"/><constraint firstItem="first-table" firstAttribute="leading" secondItem="first-view" secondAttribute="leading" id="cn-102"/><constraint firstItem="first-view" firstAttribute="trailing" secondItem="first-table" secondAttribute="trailing" id="cn-103"/><constraint firstItem="first-view" firstAttribute="bottom" secondItem="first-table" secondAttribute="bottom" id="cn-104"/><constraint firstItem="first-empty" firstAttribute="centerY" secondItem="first-safe" secondAttribute="centerY" id="cn-105"/><constraint firstItem="first-empty" firstAttribute="leading" secondItem="first-safe" secondAttribute="leading" constant="32" id="cn-106"/><constraint firstItem="first-safe" firstAttribute="trailing" secondItem="first-empty" secondAttribute="trailing" constant="32" id="cn-107"/></constraints>
+</view>
+    <navigationItem key="navigationItem" title="First Heard" id="ni-108"/>
+    <connections><outlet property="tableView" destination="first-table" id="ou-109"/><outlet property="emptyStateLabel" destination="first-empty" id="ou-110"/><segue destination="song-vc" kind="show" identifier="showSong" id="sg-111"/></connections>
+</viewController>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="fr-113" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+    </objects>
+</scene><scene sceneID="sc-137">
+    <objects>
+        <viewController id="song-vc" customClass="SongDetailViewController" customModule="SoundSpots" customModuleProvider="target" sceneMemberID="viewController">
+    <view key="view" contentMode="scaleToFill" id="song-view">
+    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+    <subviews><scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="sd-scroll">
+    <subviews><stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="sd-stack">
+    <subviews>
+        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sd-art"><constraints><constraint firstAttribute="height" constant="280" id="cn-114"/></constraints></imageView><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sd-title">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+    <nil key="textColor"/>
+    <nil key="highlightedColor"/>
+</label><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sd-artist">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+    <color key="textColor" systemColor="systemPinkColor"/>
+    <nil key="highlightedColor"/>
+</label><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album • Genre • 3:20" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sd-album">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+    <color key="textColor" systemColor="secondaryLabelColor"/>
+    <nil key="highlightedColor"/>
+</label><button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sd-preview">
+    <constraints><constraint firstAttribute="height" constant="50" id="cn-115"/></constraints>
+    <state key="normal" title="Play 30s Preview"/>
+    <connections>
+        <action selector="previewTapped:" destination="song-vc" eventType="touchUpInside" id="ac-116"/>
+    </connections>
+</button><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where you first heard it" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lbl-117">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+    <nil key="textColor"/>
+    <nil key="highlightedColor"/>
+</label><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First heard at …" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sd-first">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+    <nil key="textColor"/>
+    <nil key="highlightedColor"/>
+</label><mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="sd-map"><constraints><constraint firstAttribute="height" constant="220" id="cn-118"/></constraints></mapView><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Played 0 times" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sd-stats">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+    <color key="textColor" systemColor="secondaryLabelColor"/>
+    <nil key="highlightedColor"/>
+</label>
+    </subviews>
+    
+</stackView></subviews>
+    <constraints>
+        <constraint firstItem="sd-stack" firstAttribute="top" secondItem="sd-scroll" secondAttribute="top" constant="16" id="cn-119"/>
+        <constraint firstItem="sd-stack" firstAttribute="leading" secondItem="sd-scroll" secondAttribute="leading" constant="20" id="cn-120"/>
+        <constraint firstItem="sd-scroll" firstAttribute="trailing" secondItem="sd-stack" secondAttribute="trailing" constant="20" id="cn-121"/>
+        <constraint firstItem="sd-scroll" firstAttribute="bottom" secondItem="sd-stack" secondAttribute="bottom" constant="24" id="cn-122"/>
+        <constraint firstItem="sd-stack" firstAttribute="width" secondItem="sd-scroll" secondAttribute="width" constant="-40" id="cn-123"/>
+    </constraints>
+</scrollView></subviews>
+    <viewLayoutGuide key="safeArea" id="song-safe"/>
+    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+    <constraints><constraint firstItem="sd-scroll" firstAttribute="top" secondItem="song-safe" secondAttribute="top" id="cn-124"/><constraint firstItem="sd-scroll" firstAttribute="leading" secondItem="song-view" secondAttribute="leading" id="cn-125"/><constraint firstItem="song-view" firstAttribute="trailing" secondItem="sd-scroll" secondAttribute="trailing" id="cn-126"/><constraint firstItem="song-view" firstAttribute="bottom" secondItem="sd-scroll" secondAttribute="bottom" id="cn-127"/></constraints>
+</view>
+    <navigationItem key="navigationItem" title="Song" largeTitleDisplayMode="never" id="ni-128"/>
+    <connections><outlet property="artworkImageView" destination="sd-art" id="ou-129"/><outlet property="titleLabel" destination="sd-title" id="ou-130"/><outlet property="artistLabel" destination="sd-artist" id="ou-131"/><outlet property="albumLabel" destination="sd-album" id="ou-132"/><outlet property="previewButton" destination="sd-preview" id="ou-133"/><outlet property="firstHeardLabel" destination="sd-first" id="ou-134"/><outlet property="mapView" destination="sd-map" id="ou-135"/><outlet property="statsLabel" destination="sd-stats" id="ou-136"/></connections>
+</viewController>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="fr-138" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+    </objects>
+</scene><scene sceneID="sc-205">
+    <objects>
+        <navigationController id="nav-playlists" sceneMemberID="viewController">
+    <tabBarItem key="tabBarItem" title="Playlists" image="music.note.list" catalog="system" id="tbi-202"/>
+    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="nb-203">
+        <rect key="frame" x="0.0" y="59" width="393" height="96"/>
+        <autoresizingMask key="autoresizingMask"/>
+    </navigationBar>
+    <connections>
+        <segue destination="places-vc" kind="relationship" relationship="rootViewController" id="sg-204"/>
+    </connections>
+</navigationController>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="fr-206" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+    </objects>
+</scene><scene sceneID="sc-150">
+    <objects>
+        <viewController id="places-vc" customClass="PlacesViewController" customModule="SoundSpots" customModuleProvider="target" sceneMemberID="viewController">
+    <view key="view" contentMode="scaleToFill" id="places-view">
+    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+    <subviews><tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="64" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="places-table">
+    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+    <prototypes><tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PlaceCell" id="place-cell">
+    <rect key="frame" x="0.0" y="50" width="393" height="64"/>
+    <autoresizingMask key="autoresizingMask"/>
+    <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="place-cell" id="place-cell-content">
+        <rect key="frame" x="0.0" y="0.0" width="362" height="64"/>
+        <autoresizingMask key="autoresizingMask"/>
+    </tableViewCellContentView>
+</tableViewCell></prototypes>
+</tableView><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your location playlists will show up here once you log some listens." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="places-empty">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+    <color key="textColor" systemColor="secondaryLabelColor"/>
+    <nil key="highlightedColor"/>
+</label></subviews>
+    <viewLayoutGuide key="safeArea" id="places-safe"/>
+    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+    <constraints><constraint firstItem="places-table" firstAttribute="top" secondItem="places-view" secondAttribute="top" id="cn-139"/><constraint firstItem="places-table" firstAttribute="leading" secondItem="places-view" secondAttribute="leading" id="cn-140"/><constraint firstItem="places-view" firstAttribute="trailing" secondItem="places-table" secondAttribute="trailing" id="cn-141"/><constraint firstItem="places-view" firstAttribute="bottom" secondItem="places-table" secondAttribute="bottom" id="cn-142"/><constraint firstItem="places-empty" firstAttribute="centerY" secondItem="places-safe" secondAttribute="centerY" id="cn-143"/><constraint firstItem="places-empty" firstAttribute="leading" secondItem="places-safe" secondAttribute="leading" constant="32" id="cn-144"/><constraint firstItem="places-safe" firstAttribute="trailing" secondItem="places-empty" secondAttribute="trailing" constant="32" id="cn-145"/></constraints>
+</view>
+    <navigationItem key="navigationItem" title="Playlists" id="ni-146"/>
+    <connections><outlet property="tableView" destination="places-table" id="ou-147"/><outlet property="emptyStateLabel" destination="places-empty" id="ou-148"/><segue destination="playlist-vc" kind="show" identifier="showPlaylist" id="sg-149"/></connections>
+</viewController>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="fr-151" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+    </objects>
+</scene><scene sceneID="sc-186">
+    <objects>
+        <viewController id="playlist-vc" customClass="PlaylistViewController" customModule="SoundSpots" customModuleProvider="target" sceneMemberID="viewController">
+    <view key="view" contentMode="scaleToFill" id="pl-view">
+    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+    <subviews><stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="pl-header">
+    <subviews>
+        <stackView opaque="NO" contentMode="scaleToFill" axis="horizontal" spacing="12" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="row-152">
+    <subviews>
+        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="col-153">
+    <subviews>
+        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="📍 Place" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pl-place">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+    <nil key="textColor"/>
+    <nil key="highlightedColor"/>
+</label><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 songs" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pl-summary">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleSubheadline"/>
+    <color key="textColor" systemColor="secondaryLabelColor"/>
+    <nil key="highlightedColor"/>
+</label>
+    </subviews>
+    
+</stackView><button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pl-play">
+    <constraints><constraint firstAttribute="height" constant="40" id="cn-154"/><constraint firstAttribute="width" constant="110" id="cn-155"/></constraints>
+    <state key="normal" title="Play #1"/>
+    <connections>
+        <action selector="playTopTapped:" destination="playlist-vc" eventType="touchUpInside" id="ac-156"/>
+    </connections>
+</button>
+    </subviews>
+    
+</stackView><segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="pl-sort">
+    <segments><segment title="Most Played"/><segment title="Recent"/><segment title="Firsts"/></segments>
+    <connections>
+        <action selector="sortChanged:" destination="playlist-vc" eventType="valueChanged" id="ac-157"/>
+    </connections>
+</segmentedControl>
+    </subviews>
+    
+</stackView><tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="84" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="pl-table">
+    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+    <prototypes><tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SongCell" id="pl-cell" customClass="SongCell" customModule="SoundSpots" customModuleProvider="target">
+    <rect key="frame" x="0.0" y="50" width="393" height="84"/>
+    <autoresizingMask key="autoresizingMask"/>
+    <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pl-cell" id="pl-cellcontent">
+        <rect key="frame" x="0.0" y="0.0" width="362" height="84"/>
+        <autoresizingMask key="autoresizingMask"/>
+        <subviews><stackView opaque="NO" contentMode="scaleToFill" axis="horizontal" spacing="12" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pl-row">
+    <subviews>
+        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pl-art"><constraints><constraint firstAttribute="width" constant="60" id="cn-158"/><constraint firstAttribute="height" constant="60" priority="999" id="cn-159"/></constraints></imageView><stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="pl-texts">
+    <subviews>
+        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pl-title">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+    <nil key="textColor"/>
+    <nil key="highlightedColor"/>
+</label><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pl-artist">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleSubheadline"/>
+    <color key="textColor" systemColor="secondaryLabelColor"/>
+    <nil key="highlightedColor"/>
+</label><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pl-detail">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+    <color key="textColor" systemColor="systemPinkColor"/>
+    <nil key="highlightedColor"/>
+</label>
+    </subviews>
+    
+</stackView>
+    </subviews>
+    
+</stackView></subviews>
+        <constraints>
+            <constraint firstItem="pl-row" firstAttribute="top" secondItem="pl-cellcontent" secondAttribute="topMargin" id="cn-160"/>
+            <constraint firstItem="pl-row" firstAttribute="leading" secondItem="pl-cellcontent" secondAttribute="leadingMargin" id="cn-161"/>
+            <constraint firstItem="pl-cellcontent" firstAttribute="trailingMargin" secondItem="pl-row" secondAttribute="trailing" id="cn-162"/>
+            <constraint firstItem="pl-cellcontent" firstAttribute="bottomMargin" secondItem="pl-row" secondAttribute="bottom" id="cn-163"/>
+        </constraints>
+    </tableViewCellContentView>
+    <connections>
+        <outlet property="artworkImageView" destination="pl-art" id="ou-164"/><outlet property="titleLabel" destination="pl-title" id="ou-165"/><outlet property="artistLabel" destination="pl-artist" id="ou-166"/><outlet property="detailLabel" destination="pl-detail" id="ou-167"/>
+    </connections>
+</tableViewCell></prototypes>
+</tableView><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No songs logged here yet." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pl-empty">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+    <color key="textColor" systemColor="secondaryLabelColor"/>
+    <nil key="highlightedColor"/>
+</label></subviews>
+    <viewLayoutGuide key="safeArea" id="pl-safe"/>
+    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+    <constraints><constraint firstItem="pl-header" firstAttribute="top" secondItem="pl-safe" secondAttribute="top" constant="12" id="cn-168"/><constraint firstItem="pl-header" firstAttribute="leading" secondItem="pl-safe" secondAttribute="leading" constant="20" id="cn-169"/><constraint firstItem="pl-safe" firstAttribute="trailing" secondItem="pl-header" secondAttribute="trailing" constant="20" id="cn-170"/><constraint firstItem="pl-table" firstAttribute="top" secondItem="pl-header" secondAttribute="bottom" constant="8" id="cn-171"/><constraint firstItem="pl-table" firstAttribute="leading" secondItem="pl-view" secondAttribute="leading" id="cn-172"/><constraint firstItem="pl-view" firstAttribute="trailing" secondItem="pl-table" secondAttribute="trailing" id="cn-173"/><constraint firstItem="pl-view" firstAttribute="bottom" secondItem="pl-table" secondAttribute="bottom" id="cn-174"/><constraint firstItem="pl-empty" firstAttribute="top" secondItem="pl-table" secondAttribute="top" constant="60" id="cn-175"/><constraint firstItem="pl-empty" firstAttribute="leading" secondItem="pl-safe" secondAttribute="leading" constant="32" id="cn-176"/><constraint firstItem="pl-safe" firstAttribute="trailing" secondItem="pl-empty" secondAttribute="trailing" constant="32" id="cn-177"/></constraints>
+</view>
+    <navigationItem key="navigationItem" title="Playlist" largeTitleDisplayMode="never" id="ni-178"/>
+    <connections><outlet property="placeLabel" destination="pl-place" id="ou-179"/><outlet property="summaryLabel" destination="pl-summary" id="ou-180"/><outlet property="sortControl" destination="pl-sort" id="ou-181"/><outlet property="playTopButton" destination="pl-play" id="ou-182"/><outlet property="tableView" destination="pl-table" id="ou-183"/><outlet property="emptyStateLabel" destination="pl-empty" id="ou-184"/><segue destination="song-vc" kind="show" identifier="showSong" id="sg-185"/></connections>
+</viewController>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="fr-187" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+    </objects>
+</scene>
+    </scenes>
+    <resources>
+    <image name="map.fill" catalog="system" width="128" height="110"/>
+    <image name="music.note" catalog="system" width="96" height="128"/>
+    <image name="music.note.list" catalog="system" width="128" height="115"/>
+    <systemColor name="systemBackgroundColor"><color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/></systemColor>
+    <systemColor name="secondaryLabelColor"><color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/></systemColor>
+    <systemColor name="systemPinkColor"><color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/></systemColor>
+</resources>
+</document>

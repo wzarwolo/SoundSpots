@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="launch-vc">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <scene sceneID="sc-211">
+    <objects>
+        <viewController id="launch-vc" sceneMemberID="viewController">
+    <view key="view" contentMode="scaleToFill" id="launch-view">
+    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+    <subviews><stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="launch-stack">
+    <subviews>
+        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="mappin.and.ellipse" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="launch-icon"><constraints><constraint firstAttribute="width" constant="72" id="cn-207"/><constraint firstAttribute="height" constant="72" id="cn-208"/></constraints><color key="tintColor" systemColor="systemPinkColor"/></imageView><label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SoundSpots" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="launch-title">
+    <fontDescription key="fontDescription" style="UICTFontTextStyleLargeTitle"/>
+    <nil key="textColor"/>
+    <nil key="highlightedColor"/>
+</label>
+    </subviews>
+    
+</stackView></subviews>
+    <viewLayoutGuide key="safeArea" id="launch-safe"/>
+    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+    <constraints><constraint firstItem="launch-stack" firstAttribute="centerX" secondItem="launch-view" secondAttribute="centerX" id="cn-209"/><constraint firstItem="launch-stack" firstAttribute="centerY" secondItem="launch-view" secondAttribute="centerY" id="cn-210"/></constraints>
+</view>
+</viewController>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="fr-212" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+    </objects>
+</scene>
+    </scenes>
+    <resources>
+    <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>
+    <systemColor name="systemBackgroundColor"><color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/></systemColor>
+    <systemColor name="systemPinkColor"><color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/></systemColor>
+</resources>
+</document>
