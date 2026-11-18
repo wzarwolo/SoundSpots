@@ -7,6 +7,8 @@ Built with **Swift + UIKit + Storyboards**. No SwiftUI, no async/await.
 
 ![Screens](docs/screenshots/map-song-log.png)
 
+**Process map:** [docs/process-map.html](docs/process-map.html) shows the whole project from brief to demo day: phases, outcomes, the in-app logging flow, procedures, requirement traceability, and a glossary. Download it and open it in a browser to view it.
+
 ---
 
 ## Features

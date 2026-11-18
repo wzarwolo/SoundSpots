@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SoundSpots Process Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a phase rail across the top, then one detail panel per phase, then the in-app flow, procedures, traceability and glossary. */
+:root {
+  --bg: #f6f5f8;
+  --surface: #ffffff;
+  --ink: #1b1a24;
+  --muted: #5e5b6e;
+  --line: #e2e0ea;
+  --pink: #e52a5c;          /* the app's brand pink, slightly deepened for text contrast */
+  --pink-soft: #fde7ee;
+  --teal: #0f7a72;          /* map water: used for outcomes */
+  --teal-soft: #e0f2f0;
+  --amber: #a15c00;
+  --amber-soft: #fdf0dc;
+  --f-display: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
+  --f-body: "Inter", system-ui, -apple-system, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14131b; --surface: #1d1c26; --ink: #ecebf3; --muted: #a3a0b5; --line: #2f2d3c;
+    --pink: #ff5c86; --pink-soft: #3a1a26; --teal: #4fd1c5; --teal-soft: #15302e;
+    --amber: #f2b45a; --amber-soft: #352816; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14131b; --surface: #1d1c26; --ink: #ecebf3; --muted: #a3a0b5; --line: #2f2d3c;
+  --pink: #ff5c86; --pink-soft: #3a1a26; --teal: #4fd1c5; --teal-soft: #15302e;
+  --amber: #f2b45a; --amber-soft: #352816; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 64px;
+}
+.wrap { max-width: 1080px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; line-height: 1.15; }
+h1 { font-size: clamp(30px, 5vw, 46px); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 26px; font-weight: 700; }
+h3 { font-size: 18px; font-weight: 600; }
+p { margin: 0; }
+code { font-family: var(--f-mono); font-size: 0.86em; background: var(--line); padding: 1px 5px; border-radius: 4px; }
+.eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pink); }
+.lede { color: var(--muted); max-width: 65ch; font-size: 16px; }
+section { display: grid; gap: 20px; min-width: 0; }
+.section-head { display: grid; gap: 6px; }
+
+/* Header */
+header { display: grid; gap: 14px; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-size: 12.5px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); }
+.chip b { color: var(--ink); font-weight: 600; }
+
+/* Phase rail */
+.rail { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0; position: relative; }
+.rail::before { content: ""; position: absolute; left: 7%; right: 7%; top: 21px; height: 2px; background: var(--line); }
+.rail button {
+  position: relative; display: grid; justify-items: center; gap: 8px; padding: 0 4px 6px; border: 0; background: none;
+  color: var(--muted); font: inherit; font-size: 13px; cursor: pointer; text-align: center;
+}
+.rail .dot {
+  width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font-family: var(--f-display);
+  font-weight: 700; font-size: 17px; background: var(--surface); border: 2px solid var(--line); color: var(--ink);
+  transition: border-color .15s, background .15s, color .15s;
+}
+.rail button:hover .dot { border-color: var(--pink); }
+.rail button[aria-pressed="true"] { color: var(--ink); font-weight: 600; }
+.rail button[aria-pressed="true"] .dot { background: var(--pink); border-color: var(--pink); color: #fff; }
+.rail button:focus-visible { outline: 2px solid var(--pink); outline-offset: 4px; border-radius: 8px; }
+
+/* Phase panel */
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 28px; display: grid; gap: 22px; }
+.panel-top { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; justify-content: space-between; }
+.panel-top p { color: var(--muted); max-width: 60ch; }
+.panel-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 22px; }
+.panel-grid > * { min-width: 0; }
+.block-label { font-size: 12px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+ol.steps { margin: 0; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 10px; }
+ol.steps li { counter-increment: s; display: grid; grid-template-columns: 26px 1fr; gap: 10px; }
+ol.steps li::before {
+  content: counter(s); width: 24px; height: 24px; border-radius: 6px; background: var(--pink-soft); color: var(--pink);
+  font-size: 12.5px; font-weight: 600; display: grid; place-items: center; margin-top: 1px;
+}
+.side { display: grid; gap: 14px; align-content: start; }
+.box { border-radius: 10px; padding: 14px 16px; display: grid; gap: 4px; }
+.box.out { background: var(--teal-soft); }
+.box.out .block-label { color: var(--teal); margin: 0; }
+.box.done { border: 1px solid var(--line); }
+.box.done .block-label { margin: 0; }
+.box.open { background: var(--amber-soft); }
+.box.open .block-label { color: var(--amber); margin: 0; }
+.nav-row { display: flex; justify-content: space-between; gap: 12px; }
+.btn {
+  font: inherit; font-size: 14px; font-weight: 500; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line);
+  background: var(--surface); color: var(--ink); cursor: pointer;
+}
+.btn:hover { border-color: var(--pink); }
+.btn:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; }
+.btn:disabled { opacity: .4; cursor: default; border-color: var(--line); }
+
+/* Runtime flow */
+.flow { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px; }
+.node { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: grid; gap: 6px; align-content: start; position: relative; min-width: 0; }
+.node .n { font-family: var(--f-display); font-weight: 700; color: var(--pink); font-size: 14px; }
+.node h3 { font-size: 15.5px; }
+.node .code { font-family: var(--f-mono); font-size: 11.5px; color: var(--muted); overflow-wrap: anywhere; }
+.node .res { font-size: 13px; color: var(--teal); }
+.node:not(:last-child)::after {
+  content: "→"; position: absolute; right: -10px; top: 14px; width: 10px; text-align: center; color: var(--muted); font-size: 13px;
+}
+.branches { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.branch { border: 1px dashed var(--line); border-radius: 12px; padding: 14px 16px; display: grid; gap: 4px; }
+.branch .if { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--amber); }
+
+/* Procedures */
+.procs { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+details.proc { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 0; }
+details.proc summary { list-style: none; cursor: pointer; padding: 16px 18px; display: grid; gap: 2px; }
+details.proc summary::-webkit-details-marker { display: none; }
+details.proc summary:focus-visible { outline: 2px solid var(--pink); outline-offset: -2px; border-radius: 12px; }
+details.proc summary .when { font-size: 13px; color: var(--muted); }
+details.proc summary .prog { font-size: 12px; color: var(--teal); font-weight: 600; }
+details.proc[open] summary { border-bottom: 1px solid var(--line); }
+.proc ul { list-style: none; margin: 0; padding: 12px 18px 16px; display: grid; gap: 8px; }
+.proc label { display: grid; grid-template-columns: 20px 1fr; gap: 10px; align-items: start; cursor: pointer; font-size: 14px; }
+.proc input { margin: 3px 0 0; accent-color: var(--pink); width: 16px; height: 16px; }
+.proc input:checked + span { color: var(--muted); text-decoration: line-through; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 14px; }
+th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+tr:last-child td { border-bottom: 0; }
+td .ph { display: inline-block; font-size: 12px; font-weight: 600; color: var(--pink); background: var(--pink-soft); padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+
+/* Glossary */
+.gl-tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.gl-tools input {
+  font: inherit; font-size: 14px; padding: 9px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface);
+  color: var(--ink); width: min(320px, 100%);
+}
+.gl-tools input:focus-visible { outline: 2px solid var(--pink); outline-offset: 1px; }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; }
+.filters button { font: inherit; font-size: 13px; padding: 6px 11px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.filters button:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; }
+dl.gloss { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin: 0; }
+.term { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: grid; gap: 4px; }
+.term dt { font-weight: 600; display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.term dt small { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.term dd { margin: 0; font-size: 14px; color: var(--muted); }
+.empty { color: var(--muted); font-size: 14px; }
+
+footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); padding-top: 18px; }
+
+@media (max-width: 860px) {
+  .flow { grid-template-columns: 1fr; }
+  .node:not(:last-child)::after { content: "↓"; right: auto; left: 18px; top: auto; bottom: -15px; }
+  .branches { grid-template-columns: 1fr; }
+  .panel-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .rail { grid-template-columns: 1fr; gap: 6px; }
+  .rail::before { left: 21px; right: auto; top: 22px; bottom: 22px; width: 2px; height: auto; }
+  .rail button { grid-template-columns: 44px 1fr; justify-items: start; align-items: center; text-align: left; padding: 0; }
+  .panel { padding: 20px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Process overview · iOS capstone</span>
+    <h1>SoundSpots, from brief to demo day</h1>
+    <p class="lede">Seven phases took SoundSpots from the capstone brief to a public GitHub repo and a 4-minute demo. Each phase below lists its steps, what it produced, and how you know it's done. The in-app workflow, standard procedures, and a glossary follow.</p>
+    <div class="meta">
+      <span class="chip"><b>Stack</b> Swift · UIKit · Storyboards</span>
+      <span class="chip"><b>API</b> iTunes Search</span>
+      <span class="chip"><b>Storage</b> UserDefaults + Codable</span>
+      <span class="chip"><b>Repo</b> github.com/wzarwolo/SoundSpots</span>
+    </div>
+  </header>
+
+  <section aria-labelledby="phases-h">
+    <div class="section-head">
+      <span class="eyebrow">Project lifecycle</span>
+      <h2 id="phases-h">The seven phases</h2>
+    </div>
+    <div class="rail" id="rail" role="group" aria-label="Choose a phase"></div>
+    <article class="panel" id="panel" aria-live="polite"></article>
+  </section>
+
+  <section aria-labelledby="flow-h">
+    <div class="section-head">
+      <span class="eyebrow">Inside the app</span>
+      <h2 id="flow-h">Logging a listen, step by step</h2>
+      <p class="lede">This is the core workflow a user runs, and the one the demo shows. Each step names the code that does the work and what comes out of it.</p>
+    </div>
+    <div class="flow" id="flow"></div>
+    <div class="branches" id="branches"></div>
+  </section>
+
+  <section aria-labelledby="proc-h">
+    <div class="section-head">
+      <span class="eyebrow">Procedures</span>
+      <h2 id="proc-h">Standard procedures</h2>
+      <p class="lede">Repeatable how-tos for running, demoing, and updating the project. Tick steps as you go; ticks are saved only in this browser.</p>
+    </div>
+    <div class="procs" id="procs"></div>
+  </section>
+
+  <section aria-labelledby="trace-h">
+    <div class="section-head">
+      <span class="eyebrow">Traceability</span>
+      <h2 id="trace-h">Requirement to phase to code</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Requirement</th><th>Phase</th><th>Where it lives</th></tr></thead>
+        <tbody id="trace"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="gl-h">
+    <div class="section-head">
+      <span class="eyebrow">Terms</span>
+      <h2 id="gl-h">Glossary</h2>
+    </div>
+    <div class="gl-tools">
+      <input id="gl-search" type="search" placeholder="Search terms" aria-label="Search terms">
+      <div class="filters" id="gl-filters" role="group" aria-label="Filter by area"></div>
+    </div>
+    <dl class="gloss" id="gloss"></dl>
+    <p class="empty" id="gl-empty" hidden>No terms match that search.</p>
+  </section>
+
+  <footer>SoundSpots capstone · process overview as of November 18, 2026. Open item: GitHub's Contributors box still shows a cached Claude entry; the repo's commits and contributor data list only wzarwolo.</footer>
+</div>
+
+<script>
+const phases = [
+  { name: "Requirements", goal: "Turn the capstone brief into a checklist every later phase is checked against.",
+    steps: ["Read the brief and list every required element.", "Record the hard rules: UIKit with storyboards, no SwiftUI, async/await only after everything else is met.", "Group requirements into Swift basics, UIKit, networking, navigation, persistence, presentation, and submission."],
+    outcome: "A requirement checklist (see Traceability below).", done: "Every requirement has a planned place in the app." },
+  { name: "Concept", goal: "Choose an idea that uses every requirement naturally.",
+    steps: ["First idea: AnimeShelf, an anime tracker on the Jikan API. Built, then set aside.", "Switched to SoundSpots: remember where you first heard songs, pin them on a map, and build a playlist per place.", "Chose the iTunes Search API: public, no key, with artwork and 30-second previews."],
+    outcome: "The app idea, its problem statement, and the API choice.", done: "The idea needs a map, a table, an API, and saved data." },
+  { name: "Design", goal: "Plan the screens, navigation, and data model.",
+    steps: ["Tab bar with three tabs (Map, First Heard, Playlists), each inside a navigation controller.", "Push screens: Playlist and Song Detail. Modal flow: Log a Listen, then Where Are You?", "Data model: Song, Place, ListenEvent, ListeningHistory.", "Rules: listens within 150 m join the same place; playlists rank songs by plays at that place."],
+    outcome: "Main.storyboard layout and the model structs.", done: "Every screen has a segue identifier and knows what data it receives." },
+  { name: "Build", goal: "Write the code in layers, from data up to screens.",
+    steps: ["Models and enums: PlaylistSort, LocationSource, SegueIdentifier.", "Networking: MusicSearching protocol, ITunesMusicService (URLSession + Codable), MockMusicService.", "Services: LocationService (CoreLocation + reverse geocoding) and PreviewPlayer (AVPlayer).", "Persistence: ListenStore and the UserDefaults+Codable helper.", "Controllers: seven view controllers wired to the storyboard.", "Sample data: 12 songs, 4 San Francisco places, 56 listens."],
+    outcome: "A complete app that builds in Xcode.", done: "The project builds with no errors." },
+  { name: "Test & verify", goal: "Prove every screen and flow works before shipping.",
+    steps: ["Run in the iOS Simulator with demo data and a custom location.", "Screenshot every screen and check the layout.", "Check live iTunes decoding (24 results decoded).", "Fix what testing found: button titles, map zoom after loading demo data, over-zoom on a single pin."],
+    outcome: "Verified screens, with screenshots in docs/screenshots.", done: "Every step of the demo script works start to finish." },
+  { name: "Ship", goal: "Submit a project that builds, through GitHub.",
+    steps: ["Write the README (features, how to run, requirement mapping) and PRESENTATION.md.", "Move the project to ~/SoundSpot and push it to a public repo.", "Remove the Claude co-author line and force-push clean history.", "Push a small README commit to refresh the contributors list."],
+    outcome: "github.com/wzarwolo/SoundSpots: 2 commits, both by wzarwolo.", done: "The repo clones and builds.",
+    open: "GitHub's Contributors box still shows a cached Claude entry. Fix: wait, or swap in a fresh repo and keep the old one as a private backup." },
+  { name: "Demo day", goal: "Present the app in about 4 minutes, then take questions.",
+    steps: ["Introduction (15 s).", "Pitch: the problem and the solution (45 s).", "Live demo told as a day in your life (2 min).", "Next steps (45 s): automatic logging, playlist export, Core Data, social, tests."],
+    outcome: "Demo Day Guide (doc and Word file) and a rehearsed script.", done: "The talk is rehearsed twice and runs under 4 minutes." }
+];
+
+const flow = [
+  { t: "Tap +", c: "MapViewController", r: "Log a Listen opens as a modal" },
+  { t: "Search", c: "ITunesMusicService · URLSession", r: "Songs decoded with Codable" },
+  { t: "Pick a song", c: "prepare(for:sender:)", r: "Song passed to the next screen" },
+  { t: "Locate", c: "LocationService · CLGeocoder", r: "Coordinates and a suggested name" },
+  { t: "Save", c: "ListenStore.logListen", r: "Listen stored in UserDefaults" },
+  { t: "Report back", c: "LogListenDelegate", r: "Map zooms to the new pin" },
+  { t: "Refresh", c: "NotificationCenter", r: "Other tabs reload" }
+];
+const branches = [
+  { i: "If there's no internet", d: "The search shows an alert and switches to MockMusicService sample songs, so logging still works." },
+  { i: "If there's no GPS", d: "The app uses the map's current center as the location." },
+  { i: "If within 150 m of a saved place", d: "The listen joins that place's playlist. Otherwise a new place is created." }
+];
+
+const procs = [
+  { t: "Run the app", w: "Any time you open the project", s: ["Open SoundSpots.xcodeproj in Xcode 15 or later.", "Pick an iPhone simulator in the toolbar.", "Press Run (⌘R)."] },
+  { t: "Load or clear demo data", w: "Before a demo, or to reset", s: ["Open the Map tab.", "Tap ⋯, then Load Demo Data (4 places, 56 listens).", "To reset, tap ⋯, then Clear All."] },
+  { t: "Set the simulator location", w: "The simulator has no GPS", s: ["In the Simulator menu, choose Features › Location › Custom Location.", "Enter 37.77, -122.447 (San Francisco).", "Log a listen to confirm a place name is suggested."] },
+  { t: "Demo setup", w: "Right before presenting", s: ["Connect to the projector and mirror the display.", "Launch the app and load demo data.", "Set the custom location.", "Open Xcode on ListenStore.swift behind the simulator.", "Turn on Do Not Disturb."] },
+  { t: "Push a change to GitHub", w: "After editing code or docs", s: ["Build and run once to confirm nothing broke.", "git add the changed files.", "git commit with a clear message and no co-author line.", "git push, then check the repo page."] },
+  { t: "Fix command-line builds", w: "If xcodebuild says Xcode isn't selected", s: ["Run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer", "Enter your Mac password.", "Run the build again."] }
+];
+
+const trace = [
+  ["Enum", 4, "PlaylistSort, LocationSource, NetworkError, SegueIdentifier"],
+  ["Escaping closures", 4, "searchSongs(completion:), requestCurrentLocation(completion:), ImageLoader"],
+  ["Protocols beyond table views", 4, "MusicSearching, ListenStoring, LogListenDelegate, ReuseIdentifiable"],
+  ["Classes and structs", 3, "Structs: Song, Place, ListenEvent. Classes: ListenStore, PreviewPlayer"],
+  ["Optionals", 4, "ITunesTrack fields; toSong() returns Song?"],
+  ["Typecasting", 4, "segue.destination as?, annotation as? PlaceAnnotation, SceneDelegate"],
+  ["Auto Layout and components", 3, "Main.storyboard: stack views, scroll views, MKMapView, segmented control"],
+  ["Table view", 4, "First Heard, Playlists, Playlist, search results"],
+  ["Navigation and tab bar controllers", 3, "Main.storyboard: tab bar with 3 navigation controllers"],
+  ["URLSession + Codable API", 4, "ITunesMusicService decoding ITunesSearchResponse"],
+  ["Passing data between screens", 3, "prepare(for:sender:) forward, LogListenDelegate back"],
+  ["UserDefaults persistence", 4, "ListenStore + UserDefaults+Codable.swift"],
+  ["Builds from GitHub", 6, "github.com/wzarwolo/SoundSpots"],
+  ["4-minute presentation", 7, "PRESENTATION.md and the Demo Day Guide"]
+];
+
+const gloss = [
+  ["UIKit", "iOS", "Apple's framework for building iOS screens with views and view controllers. SoundSpots uses it instead of SwiftUI."],
+  ["Storyboard", "iOS", "A visual file (Main.storyboard) in Xcode where screens and the connections between them are laid out."],
+  ["Auto Layout", "iOS", "Rules (constraints) that size and place views so a screen fits every iPhone."],
+  ["View controller", "iOS", "The class that manages one screen, such as MapViewController."],
+  ["Navigation controller", "iOS", "A container that pushes detail screens and shows a Back button."],
+  ["Tab bar controller", "iOS", "The bar at the bottom that switches between Map, First Heard, and Playlists."],
+  ["Segue", "iOS", "A storyboard connection that moves from one screen to another, named by an identifier."],
+  ["Push vs. modal", "iOS", "Push slides a screen in within a tab; modal slides up over everything, like the Log a Listen flow."],
+  ["Table view", "iOS", "A scrolling list of rows, used for songs and places."],
+  ["Annotation", "iOS", "A pin on an MKMapView. PlaceAnnotation is the app's pin type."],
+  ["Enum", "Swift", "A type with a fixed set of cases, such as PlaylistSort's Most Played, Recent, and Firsts."],
+  ["Associated value", "Swift", "Extra data attached to an enum case, like LocationSource.existingPlace(Place)."],
+  ["Protocol", "Swift", "A contract of methods a type promises to provide, like MusicSearching."],
+  ["Delegate", "Swift", "A protocol used to send results back to another object, like LogListenDelegate."],
+  ["Escaping closure", "Swift", "A block of code saved and run later, after a network or location call finishes."],
+  ["Optional", "Swift", "A value that might be missing (nil), written with ?, and unwrapped safely with guard let or ??."],
+  ["Typecasting", "Swift", "Checking or converting a value's type with as? or is."],
+  ["Singleton", "Swift", "One shared instance used app-wide, such as ListenStore.shared."],
+  ["URLSession", "Data", "Apple's API for making network requests."],
+  ["Codable", "Data", "Swift's way to convert types to and from JSON automatically."],
+  ["iTunes Search API", "Data", "Apple's free public music catalog search; no API key needed."],
+  ["UserDefaults", "Data", "Simple on-device storage; SoundSpots saves its whole history there as JSON."],
+  ["Mock service", "Data", "A fake data source (MockMusicService) used when the network fails or for testing."],
+  ["Debounce", "Data", "Waiting briefly (0.5 s) after typing stops before searching, to avoid extra requests."],
+  ["NotificationCenter", "Data", "A broadcast system that tells every screen the history changed."],
+  ["CoreLocation", "Data", "Apple's framework for getting the device's GPS position."],
+  ["Reverse geocoding", "Data", "Turning coordinates into a readable address, used to suggest a place name."],
+  ["Simulator", "Tools", "The virtual iPhone on your Mac used to run and demo the app."],
+  ["Repository (repo)", "Tools", "The project's folder and history on GitHub."],
+  ["Commit", "Tools", "A saved snapshot of changes, with an author and a message."],
+  ["Force-push", "Tools", "Replacing the history on GitHub with your local history; used to remove the co-author line."],
+  ["Contributor", "Tools", "Someone GitHub credits with commits in the repo's sidebar."]
+];
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+/* Phases */
+let current = 0;
+phases.forEach((p, i) => {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.innerHTML = `<span class="dot">${i + 1}</span><span>${esc(p.name)}</span>`;
+  b.addEventListener("click", () => showPhase(i));
+  $("rail").appendChild(b);
+});
+function showPhase(i) {
+  current = i;
+  const p = phases[i];
+  [...$("rail").children].forEach((b, j) => b.setAttribute("aria-pressed", String(j === i)));
+  $("panel").innerHTML = `
+    <div class="panel-top">
+      <div><span class="eyebrow">Phase ${i + 1} of ${phases.length}</span><h2>${esc(p.name)}</h2></div>
+      <p>${esc(p.goal)}</p>
+    </div>
+    <div class="panel-grid">
+      <div><div class="block-label">Steps</div><ol class="steps">${p.steps.map((s) => `<li><span>${esc(s)}</span></li>`).join("")}</ol></div>
+      <div class="side">
+        <div class="box out"><div class="block-label">Outcome</div><p>${esc(p.outcome)}</p></div>
+        <div class="box done"><div class="block-label">Done when</div><p>${esc(p.done)}</p></div>
+        ${p.open ? `<div class="box open"><div class="block-label">Open item</div><p>${esc(p.open)}</p></div>` : ""}
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn" type="button" id="prev" ${i === 0 ? "disabled" : ""}>← ${i > 0 ? esc(phases[i - 1].name) : "Previous"}</button>
+      <button class="btn" type="button" id="next" ${i === phases.length - 1 ? "disabled" : ""}>${i < phases.length - 1 ? esc(phases[i + 1].name) : "Next"} →</button>
+    </div>`;
+  $("prev").addEventListener("click", () => showPhase(current - 1));
+  $("next").addEventListener("click", () => showPhase(current + 1));
+}
+showPhase(0);
+
+/* Runtime flow */
+$("flow").innerHTML = flow.map((f, i) => `
+  <div class="node"><span class="n">${i + 1}</span><h3>${esc(f.t)}</h3><div class="code">${esc(f.c)}</div><div class="res">${esc(f.r)}</div></div>`).join("");
+$("branches").innerHTML = branches.map((b) => `<div class="branch"><span class="if">${esc(b.i)}</span><p>${esc(b.d)}</p></div>`).join("");
+
+/* Procedures, with per-browser ticks */
+let ticks = {};
+try { ticks = JSON.parse(localStorage.getItem("ss-proc-ticks") || "{}"); } catch (e) { ticks = {}; }
+const saveTicks = () => { try { localStorage.setItem("ss-proc-ticks", JSON.stringify(ticks)); } catch (e) {} };
+procs.forEach((p, pi) => {
+  const d = document.createElement("details");
+  d.className = "proc";
+  const items = p.s.map((s, si) => {
+    const id = `p${pi}-${si}`;
+    return `<li><label for="${id}"><input type="checkbox" id="${id}" ${ticks[id] ? "checked" : ""}><span>${esc(s)}</span></label></li>`;
+  }).join("");
+  d.innerHTML = `<summary><h3>${esc(p.t)}</h3><span class="when">${esc(p.w)}</span><span class="prog"></span></summary><ul>${items}</ul>`;
+  const prog = d.querySelector(".prog");
+  const update = () => {
+    const n = p.s.filter((_, si) => ticks[`p${pi}-${si}`]).length;
+    prog.textContent = `${n} of ${p.s.length} steps done`;
+  };
+  d.querySelectorAll("input").forEach((inp) => inp.addEventListener("change", () => { ticks[inp.id] = inp.checked; saveTicks(); update(); }));
+  update();
+  $("procs").appendChild(d);
+});
+
+/* Traceability */
+$("trace").innerHTML = trace.map(([r, ph, w]) => `<tr><td>${esc(r)}</td><td><span class="ph">${ph}. ${esc(phases[ph - 1].name)}</span></td><td>${esc(w)}</td></tr>`).join("");
+
+/* Glossary */
+const areas = ["All", "iOS", "Swift", "Data", "Tools"];
+let area = "All";
+areas.forEach((a) => {
+  const b = document.createElement("button");
+  b.type = "button"; b.textContent = a;
+  b.addEventListener("click", () => { area = a; renderGloss(); });
+  $("gl-filters").appendChild(b);
+});
+function renderGloss() {
+  const q = $("gl-search").value.trim().toLowerCase();
+  [...$("gl-filters").children].forEach((b) => b.setAttribute("aria-pressed", String(b.textContent === area)));
+  const list = gloss.filter(([t, a, d]) => (area === "All" || a === area) && (!q || (t + " " + d).toLowerCase().includes(q)));
+  $("gloss").innerHTML = list.map(([t, a, d]) => `<div class="term"><dt>${esc(t)}<small>${esc(a)}</small></dt><dd>${esc(d)}</dd></div>`).join("");
+  $("gl-empty").hidden = list.length > 0;
+}
+$("gl-search").addEventListener("input", renderGloss);
+renderGloss();
+</script>
+</body>
+</html>
