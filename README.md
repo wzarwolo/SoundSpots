@@ -23,7 +23,7 @@ Built with **Swift + UIKit + Storyboards**. No SwiftUI, no async/await.
 
 ## How to run
 
-1. Open `SoundSpots.xcodeproj` in Xcode 15 or later.
+1. Clone this repo and open `SoundSpots.xcodeproj` in Xcode 15 or later.
 2. Pick an iPhone simulator and press **Run** (⌘R).
 3. On the Map tab, tap **⋯ › Load Demo Data** to fill the app with sample spots around San Francisco.
 
