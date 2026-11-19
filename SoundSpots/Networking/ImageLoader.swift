@@ -5,7 +5,7 @@
 
 import UIKit
 
-/// Downloads poster images with URLSession and caches them in memory.
+/// Downloads album artwork with URLSession and caches them in memory.
 final class ImageLoader {
 
     static let shared = ImageLoader()
