@@ -21,6 +21,22 @@
 		43B81706CEBE197B4BA5BB48 /* UserDefaults+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A6B6500BBD4F087DE86445 /* UserDefaults+Codable.swift */; };
 		6268B5A2C16AD0DE49FE7D51 /* ListenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C9996B07107E9705F579DE /* ListenStore.swift */; };
 		ED433FD14F5078C4A1E25CF5 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B55B44B8C649737804CC283 /* MapViewController.swift */; };
+		F06B98924C41F8623FA4B02B /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E948CA403E054834B28740A /* Library.swift */; };
+		8A80716932CBFFECFB5D5040 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48646754BDA230262989DB81 /* SettingsStore.swift */; };
+		5E611BD2DACC29B09A3E120E /* PhotoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A580AC790EE583801A64F12A /* PhotoStore.swift */; };
+		C6F4F3959015BC32AEFC1D15 /* ReminderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD489595E671FE5E6C90F8ED /* ReminderService.swift */; };
+		FD877FA9115DE230DBBF2FCB /* FriendsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBBB182FC32DE44ED58E8B /* FriendsService.swift */; };
+		27252F41A383C99F03CFDB73 /* PhotoCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F93FE1631F6562EDCD33A5B /* PhotoCapture.swift */; };
+		22B94614EC09197983560DBD /* CreatePlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2FBDCC9F40F857BC348645 /* CreatePlaylistViewController.swift */; };
+		8ECA6F19034534EFA7CBD03A /* CustomPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731CDAD362A68BFE00E37D2D /* CustomPlaylistViewController.swift */; };
+		FB8318E68F873AFD9997379A /* MemoryBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4474632A25FF733F86223668 /* MemoryBoxViewController.swift */; };
+		F51F4F24DF1478D3D69C6E15 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57176FD7752EC4AF2C9E781 /* SettingsViewController.swift */; };
+		48DA7FDC7C93E4F8962DE908 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A89A1DE7990F20A3727DC65 /* FriendsViewController.swift */; };
+		A9F871DF4ACF38E9EDA7FDBF /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECB9D834B957784791FA402 /* StatsViewController.swift */; };
+		948D35C8D4B04C8C6A94819F /* MemoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9135C7F53160C650CFA66DE8 /* MemoryCell.swift */; };
+		B22D789CA33C9879763582BC /* FriendAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69007D0B8AB0EF73F6097AF5 /* FriendAnnotation.swift */; };
+		B10D5EFBCAFE0DA9128AFF15 /* MonthlyBarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CD689D86B4D52F903CB3A8 /* MonthlyBarsView.swift */; };
+		231AFFC3FFB9B25A53E43E6A /* SpotEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C40256D4AA8932EF4E38486 /* SpotEditor.swift */; };
 		7A5CF569E021AE193A79F6AE /* LogListenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4BD540D5AA9E711178FB4C /* LogListenViewController.swift */; };
 		27E3DEF4836D8D1C3891E8E0 /* ConfirmListenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC12F179ED1794FE1C8EEAD /* ConfirmListenViewController.swift */; };
 		9E902D3E9A3E127B9B7B98B7 /* FirstListensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB9C4D1839CD97C472A9665 /* FirstListensViewController.swift */; };
@@ -50,6 +66,22 @@
 		71A6B6500BBD4F087DE86445 /* UserDefaults+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Codable.swift"; sourceTree = "<group>"; };
 		F9C9996B07107E9705F579DE /* ListenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListenStore.swift"; sourceTree = "<group>"; };
 		7B55B44B8C649737804CC283 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController.swift"; sourceTree = "<group>"; };
+		4E948CA403E054834B28740A /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library.swift"; sourceTree = "<group>"; };
+		48646754BDA230262989DB81 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsStore.swift"; sourceTree = "<group>"; };
+		A580AC790EE583801A64F12A /* PhotoStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoStore.swift"; sourceTree = "<group>"; };
+		FD489595E671FE5E6C90F8ED /* ReminderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReminderService.swift"; sourceTree = "<group>"; };
+		8CFBBB182FC32DE44ED58E8B /* FriendsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FriendsService.swift"; sourceTree = "<group>"; };
+		0F93FE1631F6562EDCD33A5B /* PhotoCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoCapture.swift"; sourceTree = "<group>"; };
+		AB2FBDCC9F40F857BC348645 /* CreatePlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreatePlaylistViewController.swift"; sourceTree = "<group>"; };
+		731CDAD362A68BFE00E37D2D /* CustomPlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomPlaylistViewController.swift"; sourceTree = "<group>"; };
+		4474632A25FF733F86223668 /* MemoryBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MemoryBoxViewController.swift"; sourceTree = "<group>"; };
+		A57176FD7752EC4AF2C9E781 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsViewController.swift"; sourceTree = "<group>"; };
+		9A89A1DE7990F20A3727DC65 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FriendsViewController.swift"; sourceTree = "<group>"; };
+		5ECB9D834B957784791FA402 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatsViewController.swift"; sourceTree = "<group>"; };
+		9135C7F53160C650CFA66DE8 /* MemoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MemoryCell.swift"; sourceTree = "<group>"; };
+		69007D0B8AB0EF73F6097AF5 /* FriendAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FriendAnnotation.swift"; sourceTree = "<group>"; };
+		D7CD689D86B4D52F903CB3A8 /* MonthlyBarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MonthlyBarsView.swift"; sourceTree = "<group>"; };
+		4C40256D4AA8932EF4E38486 /* SpotEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpotEditor.swift"; sourceTree = "<group>"; };
 		6D4BD540D5AA9E711178FB4C /* LogListenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogListenViewController.swift"; sourceTree = "<group>"; };
 		9FC12F179ED1794FE1C8EEAD /* ConfirmListenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConfirmListenViewController.swift"; sourceTree = "<group>"; };
 		5FB9C4D1839CD97C472A9665 /* FirstListensViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirstListensViewController.swift"; sourceTree = "<group>"; };
@@ -118,6 +150,7 @@
 		D124483EF0233AEE30ED7A11 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4E948CA403E054834B28740A /* Library.swift */,
 				E3D69AD9FFC6EAB2B37189C8 /* Song.swift */,
 				5DF3C1AB95D85D546ACDD06A /* Place.swift */,
 				2152B7BE30F3A95DA108A1EE /* Enums.swift */,
@@ -139,6 +172,9 @@
 		64A31DAC7376B8992A6D7FEE /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				0F93FE1631F6562EDCD33A5B /* PhotoCapture.swift */,
+				8CFBBB182FC32DE44ED58E8B /* FriendsService.swift */,
+				FD489595E671FE5E6C90F8ED /* ReminderService.swift */,
 				2CC8A1CA35C185DD8F24A1FE /* LocationService.swift */,
 				3CD1FBE8EBDEC6680B6CB2E0 /* PreviewPlayer.swift */,
 			);
@@ -148,6 +184,8 @@
 		437E7C0A1B71EC684A8D79BB /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				A580AC790EE583801A64F12A /* PhotoStore.swift */,
+				48646754BDA230262989DB81 /* SettingsStore.swift */,
 				71A6B6500BBD4F087DE86445 /* UserDefaults+Codable.swift */,
 				F9C9996B07107E9705F579DE /* ListenStore.swift */,
 			);
@@ -157,6 +195,12 @@
 		591C559ED6D6B15A9F85FD02 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5ECB9D834B957784791FA402 /* StatsViewController.swift */,
+				9A89A1DE7990F20A3727DC65 /* FriendsViewController.swift */,
+				A57176FD7752EC4AF2C9E781 /* SettingsViewController.swift */,
+				4474632A25FF733F86223668 /* MemoryBoxViewController.swift */,
+				731CDAD362A68BFE00E37D2D /* CustomPlaylistViewController.swift */,
+				AB2FBDCC9F40F857BC348645 /* CreatePlaylistViewController.swift */,
 				7B55B44B8C649737804CC283 /* MapViewController.swift */,
 				6D4BD540D5AA9E711178FB4C /* LogListenViewController.swift */,
 				9FC12F179ED1794FE1C8EEAD /* ConfirmListenViewController.swift */,
@@ -171,6 +215,10 @@
 		785A62F6730D915597ED2079 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4C40256D4AA8932EF4E38486 /* SpotEditor.swift */,
+				D7CD689D86B4D52F903CB3A8 /* MonthlyBarsView.swift */,
+				69007D0B8AB0EF73F6097AF5 /* FriendAnnotation.swift */,
+				9135C7F53160C650CFA66DE8 /* MemoryCell.swift */,
 				AD71DFEFE63A1D1D32EDE105 /* SongCell.swift */,
 				DF3DE66B7CB381E279A12553 /* PlaceAnnotation.swift */,
 			);
@@ -273,6 +321,22 @@
 				43B81706CEBE197B4BA5BB48 /* UserDefaults+Codable.swift in Sources */,
 				6268B5A2C16AD0DE49FE7D51 /* ListenStore.swift in Sources */,
 				ED433FD14F5078C4A1E25CF5 /* MapViewController.swift in Sources */,
+				F06B98924C41F8623FA4B02B /* Library.swift in Sources */,
+				8A80716932CBFFECFB5D5040 /* SettingsStore.swift in Sources */,
+				5E611BD2DACC29B09A3E120E /* PhotoStore.swift in Sources */,
+				C6F4F3959015BC32AEFC1D15 /* ReminderService.swift in Sources */,
+				FD877FA9115DE230DBBF2FCB /* FriendsService.swift in Sources */,
+				27252F41A383C99F03CFDB73 /* PhotoCapture.swift in Sources */,
+				22B94614EC09197983560DBD /* CreatePlaylistViewController.swift in Sources */,
+				8ECA6F19034534EFA7CBD03A /* CustomPlaylistViewController.swift in Sources */,
+				FB8318E68F873AFD9997379A /* MemoryBoxViewController.swift in Sources */,
+				F51F4F24DF1478D3D69C6E15 /* SettingsViewController.swift in Sources */,
+				48DA7FDC7C93E4F8962DE908 /* FriendsViewController.swift in Sources */,
+				A9F871DF4ACF38E9EDA7FDBF /* StatsViewController.swift in Sources */,
+				948D35C8D4B04C8C6A94819F /* MemoryCell.swift in Sources */,
+				B22D789CA33C9879763582BC /* FriendAnnotation.swift in Sources */,
+				B10D5EFBCAFE0DA9128AFF15 /* MonthlyBarsView.swift in Sources */,
+				231AFFC3FFB9B25A53E43E6A /* SpotEditor.swift in Sources */,
 				7A5CF569E021AE193A79F6AE /* LogListenViewController.swift in Sources */,
 				27E3DEF4836D8D1C3891E8E0 /* ConfirmListenViewController.swift in Sources */,
 				9E902D3E9A3E127B9B7B98B7 /* FirstListensViewController.swift in Sources */,
@@ -340,6 +404,7 @@
 				INFOPLIST_FILE = SoundSpots/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SoundSpots;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "SoundSpots pins each song you log to the place where you heard it.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Snap a photo of the moment you first hear a song.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -369,6 +434,7 @@
 				INFOPLIST_FILE = SoundSpots/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SoundSpots;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "SoundSpots pins each song you log to the place where you heard it.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Snap a photo of the moment you first hear a song.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

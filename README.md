@@ -20,8 +20,14 @@ Built with **Swift + UIKit + Storyboards**. No SwiftUI, no async/await.
 | **Where Are You?** (modal, step 2) | Gets your GPS location, suggests a name using reverse geocoding (e.g. "1501 Haight St"), and saves. Listens within 150 m of a saved spot join that spot's playlist. |
 | **First Heard** (tab 2) | Every song you've logged, with the place and date you *first* heard it. |
 | **Song Detail** | Album art, a 30-second preview, and a map of every place you've played the song. |
-| **Playlists** (tab 3) | One auto-generated "Mix" per location, busiest first. Swipe to delete. |
-| **Playlist** | Songs ranked by plays at that location. Sort by **Most Played / Recent / Firsts** (songs first discovered here). Swipe right to preview. |
+| **Playlists** (tab 3) | **My Playlists** you build yourself (＋ / Create Playlist), plus one auto-generated "Mix" per spot, busiest first. Swipe to edit or delete. |
+| **Create Playlist** (modal) | Name it, tap songs to add them, or "Fill from a Spot" to grab a spot's top songs. Also used to edit. |
+| **Playlist** | Songs ranked by plays at that spot. Sort by **Most Played / Recent / Firsts**. Swipe right to preview. ✏️ edits the spot. |
+| **Memory Box** | Per-song notes and photos (📦 on Song Detail). The first time you log a song, the app offers to **snap a photo** of the moment. |
+| **Friends** (tab 4) | Where friends are listening right now, on a map and in a list. *Friends are simulated; real accounts are a next step.* |
+| **Stats** (tab 5) | **Your year in music**: listens, minutes, songs, listens per month, most listened-to spots, and **tier lists (S–D)** for songs and spots. |
+| **Settings** (Map › ⋯ › Settings) | **Light / Dark / System** theme, accent color, **map style** (Standard, Muted, Satellite, Hybrid), **memory reminders** per spot, rename spots + emoji, show friends on the map. |
+| **Memory reminders** | A notification when you arrive at a spot: your own message, or "You first heard *HUMBLE.* here on Oct 3". Settings has a **Send a Test Reminder** button. |
 
 ## How to run
 
@@ -40,15 +46,15 @@ Built with **Swift + UIKit + Storyboards**. No SwiftUI, no async/await.
 ### Swift basics
 | Requirement | Where |
 |---|---|
-| **enum** | `PlaylistSort` (Int raw values for the segmented control, with sorting logic), `LocationSource` (associated value `.existingPlace(Place)`), `NetworkError` / `LocationError` (associated `Error` values), `SegueIdentifier` |
-| **Escaping closures** | `MusicSearching.searchSongs(matching:completion:)`; `LocationService.requestCurrentLocation(completion:)` stores its closures in an array until CoreLocation answers; `ImageLoader.loadImage(from:completion:)` |
-| **Protocols** (beyond table views) | `MusicSearching` (real `ITunesMusicService` and `MockMusicService` can be swapped), `ListenStoring`, `LogListenDelegate` (passes data back from the modal), `ReuseIdentifiable` (with a protocol extension), `MKAnnotation` (`PlaceAnnotation`), `CLLocationManagerDelegate`, `MKMapViewDelegate`, `UISearchBarDelegate`, `UITextFieldDelegate` |
+| **enum** | `AppTheme`, `AccentChoice`, `MapStyle`, `Tier` (with a generic `assign(_:)` that splits any ranked list into S–D), `PlaylistSort` (Int raw values for the segmented control, with sorting logic), `LocationSource` (associated value `.existingPlace(Place)`), `NetworkError` / `LocationError` (associated `Error` values), `SegueIdentifier` |
+| **Escaping closures** | `MusicSearching.searchSongs(matching:completion:)`; `FriendsProviding.fetchFriends(completion:)`; `PhotoCapture.present(from:source:completion:)`; `ReminderService.requestPermission(completion:)`; `LocationService.requestCurrentLocation(completion:)` stores its closures in an array until CoreLocation answers; `ImageLoader.loadImage(from:completion:)` |
+| **Protocols** (beyond table views) | `MusicSearching` (real `ITunesMusicService` and `MockMusicService` can be swapped), `FriendsProviding` (simulated friends today, a server later), `ListenStoring`, `LogListenDelegate` (passes data back from the modal), `ReuseIdentifiable` (with a protocol extension), `MKAnnotation` (`PlaceAnnotation`), `CLLocationManagerDelegate`, `MKMapViewDelegate`, `UISearchBarDelegate`, `UITextFieldDelegate` |
 | **class / struct** | Structs for data (`Song`, `Place`, `ListenEvent`, `ListeningHistory`, `PlaylistItem`); classes for shared services with identity (`ListenStore`, `PreviewPlayer`, `LocationService`, `PlaceAnnotation`) |
 | **Optionals** | `guard let`, `if let`, `??`, `?.`, `flatMap`, `compactMap`. iTunes fields are optional and `ITunesTrack.toSong()` returns `Song?` |
 | **Typecasting** | `response as? HTTPURLResponse`, `segue.destination as? …`, `navController.topViewController as? LogListenViewController`, `sender as? Song`, `annotation as? PlaceAnnotation`, `dequeueReusableCell(…) as? SongCell`, `for case let nav as UINavigationController in …`, `$0 is PlaceAnnotation` |
 
 ### UIKit
-* **Main.storyboard** holds all eight scenes: a tab bar controller, 4 navigation controllers, and 7 view controllers, with Auto Layout throughout (stack views, safe areas, scroll views).
+* **Main.storyboard** holds every screen: a tab bar controller (5 tabs), 8 navigation controllers, and 13 view controllers, with Auto Layout throughout (stack views, safe areas, scroll views).
 * **Components:** UILabel, UIButton, UITableView (custom prototype cells), UISearchBar, UISegmentedControl, UITextField, UIImageView, UIActivityIndicatorView, UIScrollView, UIStackView, **MKMapView**, UIMenu, swipe actions, alerts.
 
 ### API (URLSession + Codable)
@@ -60,23 +66,24 @@ Built with **Swift + UIKit + Storyboards**. No SwiftUI, no async/await.
 * **Modal** presentation for the logging flow, **push** for details, **tab bar** for the 3 sections
 
 ### Persistence (UserDefaults + Codable)
-`ListenStore` saves a `ListeningHistory` (`[Place]` + `[ListenEvent]`) as JSON through a generic `UserDefaults.setCodable(_:forKey:)` helper, and loads it at launch.
+`ListenStore` saves a `ListeningHistory` (`[Place]`, `[ListenEvent]`, `[CustomPlaylist]`, `[Memory]`) as JSON through a generic `UserDefaults.setCodable(_:forKey:)` helper, and loads it at launch. A custom `init(from:)` uses `decodeIfPresent`, so saves from older versions still load. `SettingsStore` saves an `AppSettings` struct the same way. Memory photos are JPEG files in Documents (`PhotoStore`); only their file names go in UserDefaults.
 
 ## Project structure
 ```
 SoundSpots/
 ├── App/            AppDelegate, SceneDelegate
-├── Models/         Song (+ iTunes Codable types), Place, Enums, SampleData
+├── Models/         Song (+ iTunes Codable types), Place, Library (playlists, memories, friends), Enums, SampleData
 ├── Networking/     MusicService (protocol + iTunes + mock), NetworkError, ImageLoader
-├── Services/       LocationService (CoreLocation), PreviewPlayer (AVFoundation)
-├── Persistence/    ListenStore, UserDefaults+Codable
-├── Controllers/    7 view controllers
-├── Views/          SongCell, PlaceAnnotation
+├── Services/       LocationService, PreviewPlayer, ReminderService, FriendsService, PhotoCapture
+├── Persistence/    ListenStore, SettingsStore, PhotoStore, UserDefaults+Codable
+├── Controllers/    13 view controllers
+├── Views/          SongCell, MemoryCell, PlaceAnnotation, FriendAnnotation, MonthlyBarsView, SpotEditor
 └── Resources/      Main.storyboard, LaunchScreen.storyboard, Assets, Info.plist
 ```
 
 ## What I'd improve next
 * **Automatic logging:** detect the song playing in Apple Music (MusicKit) or Spotify (Web API "currently playing") instead of searching manually.
+* **Real friends:** accounts and a server (e.g. Firebase) behind the existing `FriendsProviding` protocol.
 * **Export playlists** to Apple Music or Spotify.
 * **Core Data or SwiftData** instead of UserDefaults once the history gets large.
 * **Map clustering** and heat maps for places with many listens.

@@ -34,6 +34,11 @@ final class PlaylistViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         playTopButton.setTitle(nil, for: .normal)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit Spot", image: UIImage(systemName: "pencil"),
+                                                            primaryAction: UIAction { [weak self] _ in
+                                                                guard let self = self, let place = self.place else { return }
+                                                                self.presentSpotEditor(for: place)
+                                                            })
 
         for option in PlaylistSort.allCases where option.rawValue < sortControl.numberOfSegments {
             sortControl.setTitle(option.title, forSegmentAt: option.rawValue)
@@ -63,12 +68,16 @@ final class PlaylistViewController: UIViewController {
     }
 
     private func reload() {
+        // Re-read the spot so renames and emoji changes show up immediately.
+        if let current = place.flatMap({ store.place(withID: $0.id) }) {
+            place = current
+        }
         guard let place = place else {
             placeLabel.text = "No place selected"
             return
         }
         title = "\(place.name) Mix"
-        placeLabel.text = "📍 \(place.name)"
+        placeLabel.text = place.emoji == nil ? "📍 \(place.name)" : place.displayName
 
         let all = store.playlist(for: place)
         items = sort.sorted(all)

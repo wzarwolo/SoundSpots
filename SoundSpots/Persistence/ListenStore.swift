@@ -28,6 +28,32 @@ protocol ListenStoring: AnyObject {
     func playCount(for place: Place) -> Int
     func deletePlace(_ place: Place)
     func replaceAll(with history: ListeningHistory)
+
+    // Custom playlists, memories, and spot customization
+    var customPlaylists: [CustomPlaylist] { get }
+    func savePlaylist(_ playlist: CustomPlaylist)
+    func deletePlaylist(_ playlist: CustomPlaylist)
+    func memories(for song: Song) -> [Memory]
+    func addMemory(_ memory: Memory)
+    func deleteMemory(_ memory: Memory)
+    func updatePlace(_ place: Place)
+}
+
+/// One row of a "most listened" ranking.
+struct RankedItem<Item> {
+    let item: Item
+    let plays: Int
+}
+
+/// Totals for the Stats tab.
+struct YearSummary {
+    let year: Int
+    let listens: Int
+    let minutes: Int
+    let uniqueSongs: Int
+    let spots: Int
+    /// Listens per month, January first (12 values).
+    let monthlyListens: [Int]
 }
 
 final class ListenStore: ListenStoring {
@@ -43,6 +69,11 @@ final class ListenStore: ListenStoring {
 
     var places: [Place] { history.places }
     var listens: [ListenEvent] { history.listens }
+    var customPlaylists: [CustomPlaylist] { history.customPlaylists }
+    var memories: [Memory] { history.memories }
+
+    /// Songs without a duration count as this long when adding up listening time.
+    private static let fallbackSongMillis = 210_000
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
@@ -74,7 +105,61 @@ final class ListenStore: ListenStoring {
     }
 
     func replaceAll(with newHistory: ListeningHistory) {
+        // Photos belong to memories; delete the files of any memory that's going away.
+        let keptIDs = Set(newHistory.memories.map { $0.id })
+        history.memories
+            .filter { !keptIDs.contains($0.id) }
+            .compactMap { $0.imageFileName }
+            .forEach { PhotoStore.shared.deleteImage(named: $0) }
         history = newHistory
+        persist()
+    }
+
+    /// Saves a renamed / re-iconed spot or its reminder settings.
+    func updatePlace(_ place: Place) {
+        guard let index = history.places.firstIndex(where: { $0.id == place.id }) else { return }
+        history.places[index] = place
+        persist()
+    }
+
+    // MARK: Custom playlists
+
+    /// Inserts a new playlist or replaces an existing one with the same id.
+    func savePlaylist(_ playlist: CustomPlaylist) {
+        if let index = history.customPlaylists.firstIndex(where: { $0.id == playlist.id }) {
+            history.customPlaylists[index] = playlist
+        } else {
+            history.customPlaylists.insert(playlist, at: 0)
+        }
+        persist()
+    }
+
+    func deletePlaylist(_ playlist: CustomPlaylist) {
+        history.customPlaylists.removeAll { $0.id == playlist.id }
+        persist()
+    }
+
+    func playlist(withID id: UUID) -> CustomPlaylist? {
+        customPlaylists.first { $0.id == id }
+    }
+
+    // MARK: Memory box
+
+    /// Newest first.
+    func memories(for song: Song) -> [Memory] {
+        memories.filter { $0.songID == song.id }.sorted { $0.date > $1.date }
+    }
+
+    func addMemory(_ memory: Memory) {
+        history.memories.append(memory)
+        persist()
+    }
+
+    func deleteMemory(_ memory: Memory) {
+        if let fileName = memory.imageFileName {
+            PhotoStore.shared.deleteImage(named: fileName)
+        }
+        history.memories.removeAll { $0.id == memory.id }
         persist()
     }
 
@@ -131,6 +216,56 @@ final class ListenStore: ListenStoring {
     /// The song played most at a place (used as the map pin subtitle).
     func topSong(at place: Place) -> Song? {
         PlaylistSort.mostPlayed.sorted(playlist(for: place)).first?.song
+    }
+
+    /// Every song the user has logged, once each, newest first.
+    func allSongs() -> [Song] {
+        firstListens().map { $0.song }
+    }
+
+    /// The song first heard at this place longest ago (used in memory reminders).
+    func oldestFirstListen(at place: Place) -> ListenEvent? {
+        firstListens().filter { $0.placeID == place.id }.min { $0.date < $1.date }
+    }
+
+    // MARK: Stats
+
+    func listens(inYear year: Int, calendar: Calendar = .current) -> [ListenEvent] {
+        listens.filter { calendar.component(.year, from: $0.date) == year }
+    }
+
+    func yearSummary(for year: Int, calendar: Calendar = .current) -> YearSummary {
+        let yearListens = listens(inYear: year, calendar: calendar)
+        let millis = yearListens.reduce(0) { $0 + ($1.song.durationMillis ?? Self.fallbackSongMillis) }
+        var monthly = Array(repeating: 0, count: 12)
+        for listen in yearListens {
+            monthly[calendar.component(.month, from: listen.date) - 1] += 1
+        }
+        return YearSummary(year: year,
+                           listens: yearListens.count,
+                           minutes: millis / 60_000,
+                           uniqueSongs: Set(yearListens.map { $0.song.id }).count,
+                           spots: Set(yearListens.map { $0.placeID }).count,
+                           monthlyListens: monthly)
+    }
+
+    /// Places ranked by total plays, most first.
+    func rankedPlaces() -> [RankedItem<Place>] {
+        places
+            .map { RankedItem(item: $0, plays: playCount(for: $0)) }
+            .filter { $0.plays > 0 }
+            .sorted { $0.plays > $1.plays }
+    }
+
+    /// Songs ranked by total plays across every spot, most first.
+    func rankedSongs() -> [RankedItem<Song>] {
+        Dictionary(grouping: listens) { $0.song.id }
+            .values
+            .compactMap { events -> RankedItem<Song>? in
+                guard let song = events.first?.song else { return nil }
+                return RankedItem(item: song, plays: events.count)
+            }
+            .sorted { $0.plays != $1.plays ? $0.plays > $1.plays : $0.item.title < $1.item.title }
     }
 
     private func persist() {

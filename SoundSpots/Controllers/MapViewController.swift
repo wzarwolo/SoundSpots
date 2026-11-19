@@ -15,8 +15,13 @@ final class MapViewController: UIViewController {
     @IBOutlet private weak var hintLabel: UILabel!
 
     private let store = ListenStore.shared
+    private let settingsStore = SettingsStore.shared
     private var historyObserver: NSObjectProtocol?
+    private var settingsObserver: NSObjectProtocol?
     private let annotationReuseID = "PlacePin"
+    private let friendReuseID = "FriendPin"
+    private let friendsService: FriendsProviding = SimulatedFriendsService()
+    private let photoCapture = PhotoCapture()
 
     /// Used when there's no data yet (downtown San Francisco).
     private let defaultRegion = MKCoordinateRegion(
@@ -24,8 +29,8 @@ final class MapViewController: UIViewController {
         latitudinalMeters: 12_000, longitudinalMeters: 12_000)
 
     deinit {
-        if let observer = historyObserver {
-            NotificationCenter.default.removeObserver(observer)
+        [historyObserver, settingsObserver].compactMap { $0 }.forEach {
+            NotificationCenter.default.removeObserver($0)
         }
     }
 
@@ -35,7 +40,9 @@ final class MapViewController: UIViewController {
         super.viewDidLoad()
         mapView.delegate = self
         mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: annotationReuseID)
+        mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: friendReuseID)
         mapView.setRegion(defaultRegion, animated: false)
+        settingsStore.settings.mapStyle.apply(to: mapView)
 
         hintContainer.layer.cornerRadius = 14
         hintContainer.layer.shadowColor = UIColor.black.cgColor
@@ -53,7 +60,35 @@ final class MapViewController: UIViewController {
             let wasEmpty = self?.mapView.annotations.contains { $0 is PlaceAnnotation } == false
             self?.reloadAnnotations(zoomToFit: wasEmpty)
         }
+        settingsObserver = NotificationCenter.default.addObserver(forName: .settingsDidChange,
+                                                                  object: nil, queue: .main) { [weak self] _ in
+            self?.applySettings()
+        }
         reloadAnnotations(zoomToFit: true)
+        reloadFriends()
+    }
+
+    // MARK: Settings
+
+    private func applySettings() {
+        settingsStore.settings.mapStyle.apply(to: mapView)
+        // Rebuild the menu so the checkmark moves to the current map style.
+        navigationItem.leftBarButtonItem?.menu = makeOptionsMenu()
+        reloadFriends()
+        // Re-tint pins in case the accent color changed.
+        reloadAnnotations(zoomToFit: false)
+    }
+
+    /// Shows or hides friends' pins, depending on the setting.
+    private func reloadFriends() {
+        mapView.removeAnnotations(mapView.annotations.filter { $0 is FriendAnnotation })
+        guard settingsStore.settings.showFriendsOnMap else { return }
+        friendsService.fetchFriends { [weak self] result in
+            guard let self = self, self.settingsStore.settings.showFriendsOnMap,
+                  case .success(let friends) = result else { return }
+            self.mapView.removeAnnotations(self.mapView.annotations.filter { $0 is FriendAnnotation })
+            self.mapView.addAnnotations(friends.map { FriendAnnotation(friend: $0) })
+        }
     }
 
     // MARK: Map content
@@ -103,6 +138,21 @@ final class MapViewController: UIViewController {
             guard let self = self else { return }
             self.mapView.showAnnotations(self.mapView.annotations, animated: true)
         }
+        let styles = MapStyle.allCases.map { style in
+            UIAction(title: style.title, image: UIImage(systemName: style.symbolName),
+                     state: style == settingsStore.settings.mapStyle ? .on : .off) { [weak self] _ in
+                self?.settingsStore.update { $0.mapStyle = style }
+            }
+        }
+        let styleMenu = UIMenu(title: "Map Style", image: UIImage(systemName: "square.3.layers.3d"), children: styles)
+        let friends = UIAction(title: "Show Friends", image: UIImage(systemName: "person.2"),
+                               state: settingsStore.settings.showFriendsOnMap ? .on : .off) { [weak self] _ in
+            self?.settingsStore.update { $0.showFriendsOnMap.toggle() }
+        }
+        let settings = UIAction(title: "Settings", image: UIImage(systemName: "gearshape")) { [weak self] _ in
+            self?.performSegue(withIdentifier: SegueIdentifier.showSettings.rawValue, sender: nil)
+        }
+        let viewSection = UIMenu(options: .displayInline, children: [showAll, styleMenu, friends])
         let loadDemo = UIAction(title: "Load Demo Data", image: UIImage(systemName: "sparkles")) { [weak self] _ in
             self?.store.replaceAll(with: SampleData.makeHistory())
             self?.reloadAnnotations(zoomToFit: true)
@@ -111,7 +161,8 @@ final class MapViewController: UIViewController {
                              attributes: .destructive) { [weak self] _ in
             self?.confirmClearAll()
         }
-        return UIMenu(children: [showAll, loadDemo, clear])
+        let dataSection = UIMenu(options: .displayInline, children: [loadDemo, clear])
+        return UIMenu(children: [viewSection, dataSection, settings])
     }
 
     private func confirmClearAll() {
@@ -152,6 +203,17 @@ final class MapViewController: UIViewController {
 extension MapViewController: MKMapViewDelegate {
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        // Friends get their own color and their emoji as the glyph.
+        if let friendAnnotation = annotation as? FriendAnnotation {
+            let view = mapView.dequeueReusableAnnotationView(withIdentifier: friendReuseID, for: friendAnnotation)
+            guard let marker = view as? MKMarkerAnnotationView else { return view }
+            marker.canShowCallout = true
+            marker.markerTintColor = FriendAnnotation.tint
+            marker.glyphText = friendAnnotation.friend.emoji
+            marker.displayPriority = .defaultHigh
+            return marker
+        }
+
         // Leave the blue "you are here" dot alone; only style our own pins.
         guard let placeAnnotation = annotation as? PlaceAnnotation else { return nil }
 
@@ -178,10 +240,30 @@ extension MapViewController: MKMapViewDelegate {
 extension MapViewController: LogListenDelegate {
 
     func logListen(_ controller: UIViewController, didLog song: Song, at coordinate: Coordinate, placeName: String) {
+        let isFirstListen = store.firstListen(of: song) == nil
         let place = store.logListen(of: song, at: coordinate, placeName: placeName)
         controller.dismiss(animated: true) { [weak self] in
             self?.focus(on: place)
+            if isFirstListen {
+                self?.offerFirstListenPhoto(for: song, at: place)
+            }
         }
+    }
+
+    /// The first time a song is logged, offer to snap a photo to capture the moment.
+    private func offerFirstListenPhoto(for song: Song, at place: Place) {
+        let alert = UIAlertController(title: "📸 First listen!",
+                                      message: "Capture the moment you first heard “\(song.title)” at \(place.displayName)? It goes in the song's Memory Box.",
+                                      preferredStyle: .actionSheet)
+        photoCapture.addActions(to: alert, presenter: self) { [weak self] image in
+            guard let image = image, let fileName = PhotoStore.shared.save(image) else { return }
+            self?.store.addMemory(Memory(songID: song.id, text: "First listen at \(place.name)",
+                                         imageFileName: fileName, placeID: place.id))
+            self?.showMessage(title: "Saved to the Memory Box", message: "Open “\(song.title)” and tap the box icon to see it.")
+        }
+        alert.addAction(UIAlertAction(title: "Not Now", style: .cancel))
+        alert.popoverPresentationController?.sourceView = view
+        present(alert, animated: true)
     }
 
     func logListenDidCancel(_ controller: UIViewController) {

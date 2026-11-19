@@ -21,7 +21,7 @@ final class PlaceAnnotation: NSObject, MKAnnotation {
 
     var coordinate: CLLocationCoordinate2D { place.coordinate.clCoordinate }
 
-    var title: String? { place.name }
+    var title: String? { place.displayName }
 
     var subtitle: String? {
         guard let song = topSong else { return "\(playCount) plays" }

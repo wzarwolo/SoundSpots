@@ -53,6 +53,11 @@ final class SongDetailViewController: UIViewController {
         }
         populate(with: song)
         updatePreviewButton()
+        SettingsStore.shared.settings.mapStyle.apply(to: mapView)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Memory Box", image: UIImage(systemName: "archivebox"),
+                                                            primaryAction: UIAction { [weak self] _ in
+                                                                self?.performSegue(withIdentifier: SegueIdentifier.showMemoryBox.rawValue, sender: song)
+                                                            })
 
         playerObserver = NotificationCenter.default.addObserver(forName: .previewPlayerDidChange,
                                                                 object: nil, queue: .main) { [weak self] _ in
@@ -85,7 +90,7 @@ final class SongDetailViewController: UIViewController {
         let places = store.places.filter { placeIDs.contains($0.id) }
 
         if let first = store.firstListen(of: song), let firstPlace = store.place(withID: first.placeID) {
-            firstHeardLabel.text = "First heard at \(firstPlace.name)\n\(dateFormatter.string(from: first.date))"
+            firstHeardLabel.text = "First heard at \(firstPlace.displayName)\n\(dateFormatter.string(from: first.date))"
         } else {
             firstHeardLabel.text = "You haven't logged this song yet."
         }
@@ -130,6 +135,14 @@ final class SongDetailViewController: UIViewController {
             config.image = UIImage(systemName: "play.fill")
         }
         previewButton.configuration = config
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == SegueIdentifier.showMemoryBox.rawValue,
+              let memoryVC = segue.destination as? MemoryBoxViewController,
+              let song = sender as? Song
+        else { return }
+        memoryVC.song = song
     }
 
     @IBAction private func previewTapped(_ sender: UIButton) {

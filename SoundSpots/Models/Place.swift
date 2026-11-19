@@ -37,13 +37,30 @@ struct Place: Codable, Hashable {
     var name: String
     let coordinate: Coordinate
     let dateCreated: Date
+    /// Optional customizations. Optionals decode as nil from older saves that don't have them.
+    var emoji: String?
+    var reminderNote: String?
+    var remindersEnabled: Bool?
 
-    init(id: UUID = UUID(), name: String, coordinate: Coordinate, dateCreated: Date = Date()) {
+    init(id: UUID = UUID(), name: String, coordinate: Coordinate, dateCreated: Date = Date(),
+         emoji: String? = nil, reminderNote: String? = nil, remindersEnabled: Bool? = nil) {
         self.id = id
         self.name = name
         self.coordinate = coordinate
         self.dateCreated = dateCreated
+        self.emoji = emoji
+        self.reminderNote = reminderNote
+        self.remindersEnabled = remindersEnabled
     }
+
+    /// The name with its emoji in front, e.g. "🏋️ The Gym".
+    var displayName: String {
+        guard let emoji = emoji, !emoji.isEmpty else { return name }
+        return "\(emoji) \(name)"
+    }
+
+    /// Reminders are on unless the user turned them off for this spot.
+    var wantsReminders: Bool { remindersEnabled ?? true }
 }
 
 /// One "I listened to this song here" event.
@@ -65,6 +82,8 @@ struct ListenEvent: Codable, Hashable {
 struct ListeningHistory: Codable {
     var places: [Place] = []
     var listens: [ListenEvent] = []
+    var customPlaylists: [CustomPlaylist] = []
+    var memories: [Memory] = []
 }
 
 /// A row in a location-based playlist. Built on the fly, not saved.
